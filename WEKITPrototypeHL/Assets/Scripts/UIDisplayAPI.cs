@@ -81,6 +81,12 @@ public class UIDisplayAPI : MonoBehaviour
         {
             WipeRecord();
         }
+
+        //Load the data from the file "test0" and fill its content in the recordList.
+        if (Input.GetKeyDown("l"))
+        {
+            Load();
+        }
     }
 
 

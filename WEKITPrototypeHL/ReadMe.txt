@@ -1,0 +1,82 @@
+ReadMe
+
+--------------------------------------------------------------------
+WEKITPrototypeHL
+Current prototype for recording, saving and replaying sensor data on 
+the Microsoft HoloLens platform
+--------------------------------------------------------------------
+General Usage:
+
+The prototype can be build, deployed and run for the Microsoft
+HoloLens, but does not support keybinding inputs or data storage
+on that platform yet.
+
+Using the playmode in the Unity editor will let the user use
+the following commands via keybindings:
+
+r - start recording the data
+t - stop recording the data
+w - wipe the recorded or opened data in the temporary storage
+s - save all data from the temporary storage in a new local file
+l - load the local file's "test0" content into the temporary storage
+
+Note: All commands will stop the recording process. There is no way
+      to replay the recorded or loaded data yet. Saving data will
+      always result in a new file being created. The files will 
+      all be called "testX", where X is the automatically detected 
+      file count and can usually be found under the path:
+
+"C:\Users\{user}\AppData\LocalLow\DefaultCompany\WEKITPrototypeHL"
+--------------------------------------------------------------------
+Scripts:
+
+
+CubeCommands.cs
+- calls a function if the parent object is tapped in HoloLens
+
+How to use:
+- add the script to a mesh in the scene that should react to
+  being tapped in the HoloLens
+- type the name of the to be called function in the "Function
+  Name" field in the Unity inspector
+- pull a reference to the object with a "UIDisplayAPI" script
+  into the "DataManager" field in the Unity inspector
+
+
+GazeGestureManager.cs
+- knows what object the user is gazing at, which gesture he is
+  performing and what event should be triggered by that
+
+How to use:
+- add the script to any kind of management object in the scene
+- additional gestures and events can be added to the script in 
+  Visual Studio (see comments for more info)
+
+
+UIDisplayAPI.cs
+- collects, displays, saves, loads and manages different sensor
+  data on the users command
+
+How to use:
+- add the script to any kind of managament object in the scene
+- additional functions and data inputs can be implemented in the
+  script in Visual Studio (see comments for more info)
+- currently collects the following data - gaze direction, head
+  position, hit info, timestamp
+- stores data in a list of custom class instances "SaveData"
+
+
+WorldCursor:
+- 3D cursor that shows where the users gaze is currently hitting
+
+How to use:
+- pull the prefab "Cursor" from the folder "Prefabs" into the
+  scene and add the script "WorldCursor" to the parent object
+
+
+XmlIO:
+- helper class for serialization in builds for Windows devices
+
+How to use:
+- currently WiP, only to be called in NETFX_CORE directives
+--------------------------------------------------------------------
