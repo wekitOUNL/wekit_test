@@ -7,9 +7,11 @@ the Microsoft HoloLens platform
 --------------------------------------------------------------------
 General Usage:
 
-The prototype can be build, deployed and run for the Microsoft
-HoloLens and can save and load its recorded data from there
-(recording command is working but not yet implemented).
+The prototype can either be used as it is in the Unity Editor or be 
+build, deployed and run for the Microsoft HoloLens (Emulator) and 
+can record, save and load basic movement and environment data
+for both platforms for now.
+
 
 Using the playmode in the Unity editor will let the user use
 the following commands via keybindings:
@@ -20,11 +22,14 @@ w - wipe the recorded or opened data in the temporary storage
 s - save all data from the temporary storage in a new local file
 l - load the local file's "test0" content into the temporary storage
 
+
 Using the HoloLens Emulator will grant access to the following
 commands via tapping the cubes:
 
-left cube - saving data (see "s" keybinding)
-right cube - loading data (see "l" keybinding) 
+upper left cube - start recording the data
+upper right cube - stop recording the data
+lower left cube - saving data (see "s" keybinding)
+lower right cube - loading data (see "l" keybinding) 
 
 Note: All commands will stop the recording process. There is no way
       to replay the recorded or loaded data yet. Saving data will
