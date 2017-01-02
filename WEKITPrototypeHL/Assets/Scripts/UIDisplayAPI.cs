@@ -89,12 +89,12 @@ public class UIDisplayAPI : MonoBehaviour
             isRecording = true;
             InvokeRepeating("Record", 0f, 0.04f);
         }
+        status = "recording";
         Debug.Log("Recording");
     }
 
     void Record()
     {
-
         //Add the data in our current frame to the list of recorded data.
         recordList.Add(new saveData(headPosition, gazeDirection, castHit, recordList.Count));
     }
@@ -104,6 +104,7 @@ public class UIDisplayAPI : MonoBehaviour
         //Stop the Record function.
         isRecording = false;
         CancelInvoke("Record");
+        status = "stopped";
         Debug.Log("Stopped");
     }
 
