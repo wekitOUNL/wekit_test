@@ -8,8 +8,8 @@ the Microsoft HoloLens platform
 General Usage:
 
 The prototype can be build, deployed and run for the Microsoft
-HoloLens, but does not support keybinding inputs or data storage
-on that platform yet.
+HoloLens and can save and load its recorded data from there
+(recording command is working but not yet implemented).
 
 Using the playmode in the Unity editor will let the user use
 the following commands via keybindings:
@@ -19,6 +19,12 @@ t - stop recording the data
 w - wipe the recorded or opened data in the temporary storage
 s - save all data from the temporary storage in a new local file
 l - load the local file's "test0" content into the temporary storage
+
+Using the HoloLens Emulator will grant access to the following
+commands via tapping the cubes:
+
+left cube - saving data (see "s" keybinding)
+right cube - loading data (see "l" keybinding) 
 
 Note: All commands will stop the recording process. There is no way
       to replay the recorded or loaded data yet. Saving data will
@@ -72,11 +78,4 @@ WorldCursor:
 How to use:
 - pull the prefab "Cursor" from the folder "Prefabs" into the
   scene and add the script "WorldCursor" to the parent object
-
-
-XmlIO:
-- helper class for serialization in builds for Windows devices
-
-How to use:
-- currently WiP, only to be called in NETFX_CORE directives
 --------------------------------------------------------------------
