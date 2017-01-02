@@ -6,13 +6,6 @@ using UnityEngine.UI;
 using System.Xml.Serialization;
 using System.IO;
 
-//All NETFX_Core usages are to be used in a build targeted at Windows platforms (including HoloLens)
-//and extend or replace the functions used in Unity.
-#if NETFX_CORE
- using System.Threading.Tasks;
- using Windows.Storage;
- using Windows.Storage.Streams;
-#endif
 
 public class UIDisplayAPI : MonoBehaviour
 {
@@ -26,16 +19,16 @@ public class UIDisplayAPI : MonoBehaviour
     RaycastHit hitInfo;
     bool castHit;
     string output;
+    string status;
     bool isRecording = false;
 
 	void Awake ()
 	{
-
+        status = "pending";
 	}
 
     void Update()
     {
-        Debug.Log(recordList.Count);
         Debug.Log(isRecording);
         //Check if the raycast from the user's head in the direction of his gaze hit an object.
 
@@ -53,14 +46,9 @@ public class UIDisplayAPI : MonoBehaviour
         gazeDirection = Camera.main.transform.forward;
 
 
-
-#if NETFX_CORE
-        output = castHit.ToString() + Environment.NewLine + "pos:" + headPosition.ToString() + Environment.NewLine + "dir:" + gazeDirection.ToString() + Environment.NewLine + "HALLO";
-        output += Environment.NewLine + ApplicationData.Current.LocalFolder.Path.ToString();
-#else
         //Display the collected information in the UI.
-        output = castHit.ToString() + Environment.NewLine + "pos:" + headPosition.ToString() + Environment.NewLine + "dir:" + gazeDirection.ToString();
-#endif
+        output = castHit.ToString() + Environment.NewLine + "pos:" + headPosition.ToString() + Environment.NewLine + "dir:" + gazeDirection.ToString() + Environment.NewLine + status + Environment.NewLine + Application.persistentDataPath.ToString();
+
 
         UIText.GetComponent<Text>().text = output;
         
@@ -94,6 +82,7 @@ public class UIDisplayAPI : MonoBehaviour
     public void StartRecording()
     {
         //Stop ongoing recordings, then run the Record function 25 times per second.
+
         StopRecording();
         if (!isRecording)
         {
@@ -105,6 +94,7 @@ public class UIDisplayAPI : MonoBehaviour
 
     void Record()
     {
+
         //Add the data in our current frame to the list of recorded data.
         recordList.Add(new saveData(headPosition, gazeDirection, castHit, recordList.Count));
     }
@@ -145,10 +135,6 @@ public class UIDisplayAPI : MonoBehaviour
         //Note: A new file will always be created; overwriting data not yet implemented.
         string tempName = "/test" + count.ToString();
 
-#if NETFX_CORE
-        XmlIO.SaveObjectToXml(currentRecording, tempName);
-#else
-
         if (File.Exists(Application.persistentDataPath + tempName))
         {
             SaveRecording(currentRecording, count + 1);
@@ -160,9 +146,9 @@ public class UIDisplayAPI : MonoBehaviour
             XmlSerializer xS = new XmlSerializer(typeof(List<saveData>));
             TextWriter tW = new StreamWriter(file);
             xS.Serialize(tW, currentRecording);
+            status = "saved";
             Debug.Log("Saved");
         }
-#endif
     }
 
     public List<saveData> LoadRecording(int count = 0)
@@ -172,18 +158,17 @@ public class UIDisplayAPI : MonoBehaviour
         //Check which file shall be opened.
         if (count < 0)
         {
-            tempName = "test";
+            tempName = "/test";
         }
         else
         {
-            tempName = "test" + count.ToString();
+            tempName = "/test" + count.ToString();
         }
 
-#if NETFX_Core
-        return XmlIO.ReadObjectFromXmlFileAsync<List<saveData>>(tempName);
-#else
         if (File.Exists(Application.persistentDataPath + tempName))
         {
+            status = "loaded";
+            Debug.Log("loaded");
             //Open the chosen file with an .xml reader.
             //Store the data in the file in our temporary data record.
             //New records will be added to this data if not wiped.
@@ -196,9 +181,10 @@ public class UIDisplayAPI : MonoBehaviour
         }
         else
         {
+            status = "failed";
+            Debug.Log("failed");
             return null;
         }
-#endif
     }
 }
 

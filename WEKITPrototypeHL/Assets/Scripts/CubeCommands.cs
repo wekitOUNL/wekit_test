@@ -15,14 +15,14 @@ public class CubeCommands : MonoBehaviour
         //Start this objects referenced function with a keybinding.
         if (Input.GetKeyDown("s"))
         {
-            OnSelect();
+            DataManager.GetComponent<UIDisplayAPI>().SendMessageUpwards(FunctionName);
         }
     }
 
 	public void OnSelect()
     {
         //DEBUG: Transform the cube scale to see if this method was run properly.
-        GetComponent<Transform>().transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
+        //GetComponent<Transform>().transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
 
         //Run the method of the previously defined name of an UIDisplayAPI class.
         DataManager.GetComponent<UIDisplayAPI>().SendMessageUpwards(FunctionName);
