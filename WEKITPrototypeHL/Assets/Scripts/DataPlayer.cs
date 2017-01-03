@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class DataPlayer : MonoBehaviour
 {
-    List<SaveData> myRecording;
-    int counter = 0;
-
 	void Start ()
 	{
         
@@ -14,30 +11,33 @@ public class DataPlayer : MonoBehaviour
 	
 	void Update ()
 	{
+
 	}
 
 
+    //This function takes a list of SaveData and distributes them accordingly.
     public void Activate(List<SaveData> tempRecords)
     {
+        //Turns the ghost model visible.
         GetComponent<MeshRenderer>().enabled = true;
         transform.GetChild(0).GetComponent<MeshRenderer>().enabled = true;
 
-        myRecording = tempRecords;
-        foreach (SaveData entry in myRecording)
+        //Gives each entry of the recorded data to the PlayOverTimeCoroutine
+        foreach (SaveData entry in tempRecords)
         {
-            StartCoroutine(Wait(entry));
+            StartCoroutine(PlayOverTime(entry));
         }
     }
 
+    //This function sets the position of the ghost to match the recorded data
     void Play(SaveData tempData)
     {
-        SaveData currentData = tempData;
-
-        GetComponent<Transform>().transform.position = currentData.HeadPosition;
-        GetComponent<Transform>().transform.rotation = Quaternion.LookRotation(currentData.GazeDirection);
+        GetComponent<Transform>().transform.position = tempData.HeadPosition;
+        GetComponent<Transform>().transform.rotation = Quaternion.LookRotation(tempData.GazeDirection);
     }
 
-    IEnumerator Wait(SaveData tempData)
+    //This Coroutine plays the data saved in the SaveData list using their timestamps.
+    IEnumerator PlayOverTime(SaveData tempData)
     {
         yield return new WaitForSeconds(tempData.TimeStamp);
         Play(tempData);
