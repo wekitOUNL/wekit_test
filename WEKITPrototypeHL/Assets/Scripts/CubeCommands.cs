@@ -10,13 +10,13 @@ public class CubeCommands : MonoBehaviour
     public string FunctionName;
     public GameObject DataManager;
 
-    private void Update()
+    void Update()
     {
         //Start this objects referenced function with a keybinding.
-        if (Input.GetKeyDown("s"))
-        {
-            DataManager.GetComponent<UIDisplayAPI>().SendMessageUpwards(FunctionName);
-        }
+        //if (Input.GetKeyDown("s"))
+        //{
+        //    DataManager.GetComponent<UIDisplayAPI>().SendMessageUpwards(FunctionName);
+        //}
     }
 
 	public void OnSelect()

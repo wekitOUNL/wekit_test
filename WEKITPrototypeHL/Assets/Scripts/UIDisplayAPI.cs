@@ -12,8 +12,11 @@ public class UIDisplayAPI : MonoBehaviour
     //Reference to the text that shall display the realtime data.
     public Text UIText;
 
+    //Reference to the DataPlayer that handles the recordings.
+    public DataPlayer MyPlayer;
+
     //Private variables.
-    List<saveData> recordList = new List<saveData>();
+    List<SaveData> recordList = new List<SaveData>();
     Vector3 headPosition;
     Vector3 gazeDirection;
     RaycastHit hitInfo;
@@ -75,6 +78,11 @@ public class UIDisplayAPI : MonoBehaviour
         {
             Load();
         }
+
+        if (Input.GetKeyDown("p"))
+        {
+            PlayRecord();
+        }
     }
 
 
@@ -92,10 +100,10 @@ public class UIDisplayAPI : MonoBehaviour
         Debug.Log("Recording");
     }
 
-    void Record()
+    public void Record()
     {
         //Add the data in our current frame to the list of recorded data.
-        recordList.Add(new saveData(headPosition, gazeDirection, castHit, recordList.Count));
+        recordList.Add(new SaveData(headPosition, gazeDirection, castHit, recordList.Count));
     }
 
     public void StopRecording()
@@ -115,6 +123,13 @@ public class UIDisplayAPI : MonoBehaviour
         Debug.Log("Wiped");
     }
 
+    public void PlayRecord()
+    {
+        //Calls the DataPlayer to replay the temporarily stored Data.
+        MyPlayer.Activate(recordList);
+        status = "playing";
+    }
+
     public void Save()
     {
         //Locally save the temporarily stored data.
@@ -129,7 +144,7 @@ public class UIDisplayAPI : MonoBehaviour
         recordList = LoadRecording();
     }
 
-    void SaveRecording(List<saveData> currentRecording, int count = 0)
+    void SaveRecording(List<SaveData> currentRecording, int count = 0)
     {
         //Check the count of files and name the new one accordingly.
         //Note: A new file will always be created; overwriting data not yet implemented.
@@ -143,7 +158,7 @@ public class UIDisplayAPI : MonoBehaviour
         {
             //Write the data in an .xml file and save it locally.
             FileStream file = File.Create(Application.persistentDataPath + tempName);
-            XmlSerializer xS = new XmlSerializer(typeof(List<saveData>));
+            XmlSerializer xS = new XmlSerializer(typeof(List<SaveData>));
             TextWriter tW = new StreamWriter(file);
             xS.Serialize(tW, currentRecording);
             status = "saved";
@@ -151,7 +166,7 @@ public class UIDisplayAPI : MonoBehaviour
         }
     }
 
-    public List<saveData> LoadRecording(int count = 0)
+    public List<SaveData> LoadRecording(int count = 0)
     {
         string tempName;
 
@@ -172,9 +187,9 @@ public class UIDisplayAPI : MonoBehaviour
             //New records will be added to this data if not wiped.
             //Saving will produce a new file. Old data cannot be overwritten.
             FileStream file = File.Open(Application.persistentDataPath + tempName, FileMode.Open);
-            XmlSerializer xS = new XmlSerializer(typeof(List<saveData>));
+            XmlSerializer xS = new XmlSerializer(typeof(List<SaveData>));
             TextReader tR = new StreamReader(file);
-            List<saveData> tempList = (List<saveData>)xS.Deserialize(tR);
+            List<SaveData> tempList = (List<SaveData>)xS.Deserialize(tR);
 
             status = "loaded";
             Debug.Log("loaded");
@@ -192,7 +207,7 @@ public class UIDisplayAPI : MonoBehaviour
 
 //The serializable custom class in which the gathered data will be stored, one instance for each step.
 [Serializable]
-public class saveData
+public class SaveData
 {
     public float TimeStamp;
 
@@ -200,12 +215,12 @@ public class saveData
     public Vector3 GazeDirection;
     public bool CastHit;
 
-    public saveData()
+    public SaveData()
     {
 
     }
 
-    public saveData(Vector3 hP, Vector3 gD, bool cH, int tS)
+    public SaveData(Vector3 hP, Vector3 gD, bool cH, int tS)
     {
         HeadPosition = hP;
         GazeDirection = gD;
