@@ -9,8 +9,8 @@ General Usage:
 
 The prototype can either be used as it is in the Unity Editor or be 
 build, deployed and run for the Microsoft HoloLens (Emulator) and 
-can record, save and load basic movement and environment data
-for both platforms for now.
+can record, save, load and replay basic movement and environment 
+data for both platforms for now.
 
 
 Using the playmode in the Unity editor will let the user use
@@ -21,6 +21,7 @@ t - stop recording the data
 w - wipe the recorded or opened data in the temporary storage
 s - save all data from the temporary storage in a new local file
 l - load the local file's "test0" content into the temporary storage
+p - replay the data in the temporary storage
 
 
 Using the HoloLens Emulator will grant access to the following
@@ -29,11 +30,14 @@ commands via tapping the cubes:
 upper left cube - start recording the data
 upper right cube - stop recording the data
 lower left cube - saving data (see "s" keybinding)
-lower right cube - loading data (see "l" keybinding) 
+lower right cube - loading data (see "l" keybinding)
+far left cube - wipe record (see "w" keybinding)
+far right cube - replay data (see "p" keybinding) 
 
-Note: All commands will stop the recording process. There is no way
-      to replay the recorded or loaded data yet. Saving data will
-      always result in a new file being created. The files will 
+Note: All commands will stop the recording process. There are very 
+      basic replay functions (displaying the position and the gaze
+      direction of the user using primitive shapes). Saving data 
+      will always result in a new file being created. The files will 
       all be called "testX", where X is the automatically detected 
       file count and can usually be found under the path:
 
@@ -53,6 +57,12 @@ How to use:
 - pull a reference to the object with a "UIDisplayAPI" script
   into the "DataManager" field in the Unity inspector
 
+DataPlayer.cs
+- manages the displaying of the "ghost tracks" from recorded data
+
+How to use:
+- add the script to the mesh that you want to use to represent
+  the previously recorded movement
 
 GazeGestureManager.cs
 - knows what object the user is gazing at, which gesture he is
@@ -70,6 +80,8 @@ UIDisplayAPI.cs
 
 How to use:
 - add the script to any kind of managament object in the scene
+- use the inspector to reference your UI text field and the
+  ghost object to be used when replaying recorded data
 - additional functions and data inputs can be implemented in the
   script in Visual Studio (see comments for more info)
 - currently collects the following data - gaze direction, head
