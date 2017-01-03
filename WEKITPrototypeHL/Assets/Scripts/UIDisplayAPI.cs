@@ -30,8 +30,8 @@ public class UIDisplayAPI : MonoBehaviour
     void Update()
     {
         Debug.Log(isRecording);
-        //Check if the raycast from the user's head in the direction of his gaze hit an object.
 
+        //Check if the raycast from the user's head in the direction of his gaze hit an object.
         if (Physics.Raycast(headPosition, gazeDirection, out hitInfo))
         {
             castHit = true;
@@ -82,7 +82,6 @@ public class UIDisplayAPI : MonoBehaviour
     public void StartRecording()
     {
         //Stop ongoing recordings, then run the Record function 25 times per second.
-
         StopRecording();
         if (!isRecording)
         {
@@ -168,8 +167,6 @@ public class UIDisplayAPI : MonoBehaviour
 
         if (File.Exists(Application.persistentDataPath + tempName))
         {
-            status = "loaded";
-            Debug.Log("loaded");
             //Open the chosen file with an .xml reader.
             //Store the data in the file in our temporary data record.
             //New records will be added to this data if not wiped.
@@ -178,6 +175,9 @@ public class UIDisplayAPI : MonoBehaviour
             XmlSerializer xS = new XmlSerializer(typeof(List<saveData>));
             TextReader tR = new StreamReader(file);
             List<saveData> tempList = (List<saveData>)xS.Deserialize(tR);
+
+            status = "loaded";
+            Debug.Log("loaded");
             return tempList;
         }
         else
