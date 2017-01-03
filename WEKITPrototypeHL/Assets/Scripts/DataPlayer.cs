@@ -14,14 +14,13 @@ public class DataPlayer : MonoBehaviour
 	
 	void Update ()
 	{
-		
 	}
 
 
     public void Activate(List<SaveData> tempRecords)
     {
         GetComponent<MeshRenderer>().enabled = true;
-        GetComponentInChildren<MeshRenderer>().enabled = true;
+        transform.GetChild(0).GetComponent<MeshRenderer>().enabled = true;
 
         myRecording = tempRecords;
         foreach (SaveData entry in myRecording)
@@ -35,7 +34,7 @@ public class DataPlayer : MonoBehaviour
         SaveData currentData = tempData;
 
         GetComponent<Transform>().transform.position = currentData.HeadPosition;
-        GetComponent<Transform>().transform.rotation = Quaternion.Euler(currentData.GazeDirection);
+        GetComponent<Transform>().transform.rotation = Quaternion.LookRotation(currentData.GazeDirection);
     }
 
     IEnumerator Wait(SaveData tempData)
