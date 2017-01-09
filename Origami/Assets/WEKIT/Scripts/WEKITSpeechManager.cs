@@ -13,13 +13,26 @@ public class WEKITSpeechManager : Singleton<WEKITSpeechManager>
     // Use this for initialization
     void Start()
     {
-        keywords.Add("Annotate", () =>
+        keywords.Add("Menu", () =>
+        {
+            var focusObject = GazeManager.Instance.HitObject;
+            if (focusObject != null)
+            {
+                // Call the OpenMenu method on just the focused object.
+                focusObject.SendMessage("OpenMenu");
+            } else
+            {
+                WEKITGlobalsManager.Instance.gameObject.SendMessage("OpenMenu");
+            }
+        });
+
+        keywords.Add("Add Text", () =>
         {
             var focusObject = GazeManager.Instance.HitObject;
             if (focusObject != null)
             {
                 // Call the OnDrop method on just the focused object.
-                focusObject.SendMessage("AddAnnotation");
+                focusObject.SendMessage("AddTextAnnotation");
             }
         });
 
@@ -47,6 +60,30 @@ public class WEKITSpeechManager : Singleton<WEKITSpeechManager>
         if (keywords.TryGetValue(args.text, out keywordAction))
         {
             keywordAction.Invoke();
+        }
+    }
+
+
+    /// <summary>
+    /// called, when microphone is needed for audio recording or other purposes.
+    /// </summary>
+    public void PauseRecognizer()
+    {
+        if (keywordRecognizer != null && keywordRecognizer.IsRunning)
+        {
+            keywordRecognizer.Stop();
+        }
+    }
+
+
+    /// <summary>
+    /// called, when microphone can be used for speech recognition again.
+    /// </summary>
+    public void ContinueRecognizer()
+    {
+        if (keywordRecognizer != null && !keywordRecognizer.IsRunning)
+        {
+            keywordRecognizer.Start();
         }
     }
 }

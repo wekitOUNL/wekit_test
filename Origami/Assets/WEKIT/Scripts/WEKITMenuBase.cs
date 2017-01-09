@@ -6,9 +6,6 @@ using HoloToolkit.Unity.InputModule;
 
 public class WEKITMenuBase : MonoBehaviour, IInputClickHandler {
 
-    [Tooltip("Drag the MenuItem prefab asset you want to create the menu with.")]
-    public GameObject MenuItem;
-
     [Tooltip("Provide the menu item texts to display.")]
     public string[] menuItemTexts;
 
@@ -26,31 +23,25 @@ public class WEKITMenuBase : MonoBehaviour, IInputClickHandler {
     void OpenMenu()
     {
         CloseMenu();
-        if (MenuItem == null)
+        if (WEKITGlobalsManager.Instance.MenuItem == null)
         {
             return;
         }
 
-        Vector3 headPosition = Camera.main.transform.position;
-        Vector3 gazeDirection = Camera.main.transform.forward;
-        RaycastHit hitInfo;
-        Physics.Raycast(headPosition, gazeDirection, out hitInfo);
-
-        gazeDirection.Normalize();
+        Vector3 targetPoint = WEKITUtilities.placeObject(Camera.main.transform, 0.5f, 3.0f, 0.2f);
 
         menuItems = new GameObject[menuItemNames.Length];
 
         for (int i=0; i<menuItemNames.Length; i++)
         {
-            menuItems[i] = GameObject.Instantiate(MenuItem);
+            menuItems[i] = GameObject.Instantiate(WEKITGlobalsManager.Instance.MenuItem);
             menuItems[i].SetActive(true);
             menuItems[i].AddComponent<Billboard>();
             menuItems[i].name = menuItemNames[i];
             menuItems[i].GetComponent<TextMesh>().text = menuItemTexts[i];
             WEKITMenuItem item = menuItems[i].GetComponent<WEKITMenuItem>();
             item.rootGameObject = this.gameObject;
-            menuItems[i].transform.position = hitInfo.point;
-            menuItems[i].transform.position -= gazeDirection * 0.2f;
+            menuItems[i].transform.position = targetPoint;
             menuItems[i].transform.localPosition -= new Vector3(0, 0.025f * i, 0);
         }
 
