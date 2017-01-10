@@ -35,21 +35,20 @@ public class DataPlayer : MonoBehaviour
         }
     }
 
-    //This function sets the position of the ghost to match the recorded data
-    void Play(SaveData tempData)
-    {
-        GetComponent<Transform>().transform.position = tempData.HeadPosition;
-        GetComponent<Transform>().transform.rotation = Quaternion.LookRotation(tempData.GazeDirection);
-    }
-
     //This Coroutine plays the data saved in the SaveData list using their timestamps.
     IEnumerator PlayOverTime(SaveData tempData)
     {
         yield return new WaitForSeconds(tempData.TimeStamp);
         if (isPlaying)
         {
-            currentFrame = (int) (tempData.TimeStamp / 0.04f);
             Play(tempData);
         }
+    }
+
+    //This function sets the position of the ghost to match the recorded data
+    void Play(SaveData tempData)
+    {
+        GetComponent<Transform>().transform.position = tempData.HeadPosition;
+        GetComponent<Transform>().transform.rotation = Quaternion.LookRotation(tempData.GazeDirection);
     }
 }
