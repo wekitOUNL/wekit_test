@@ -53,7 +53,7 @@ public class UIDisplayAPI : MonoBehaviour
 
 
         //Display the collected information in the UI.
-        output = castHit.ToString() + Environment.NewLine + "pos:" + headPosition.ToString() + Environment.NewLine + "dir:" + gazeDirection.ToString() + Environment.NewLine + status + Environment.NewLine + Application.persistentDataPath.ToString();
+        output = castHit.ToString() + Environment.NewLine + "pos:" + headPosition.ToString() + Environment.NewLine + "dir:" + gazeDirection.ToString() + Environment.NewLine + status + Environment.NewLine + Time.time + Environment.NewLine + MyPlayer.currentFrame.ToString() + ", " + MyPlayer.isPlaying.ToString();
 
 
         UIText.GetComponent<Text>().text = output;
@@ -82,6 +82,7 @@ public class UIDisplayAPI : MonoBehaviour
             Load();
         }
 
+        //Play the ghost of the recorded data.
         if (Input.GetKeyDown("p"))
         {
             PlayRecord();
@@ -132,6 +133,13 @@ public class UIDisplayAPI : MonoBehaviour
         //Calls the DataPlayer to replay the temporarily stored Data.
         MyPlayer.Activate(recordList);
         status = "playing";
+    }
+
+    public void PauseRecord()
+    {
+        //Calls the DataPlayer to stop the current playback.
+        MyPlayer.Stop();
+        status = "play/pause";
     }
 
     public void Save()

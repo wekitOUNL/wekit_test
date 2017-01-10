@@ -12,27 +12,34 @@ build, deployed and run for the Microsoft HoloLens (Emulator) and
 can record, save, load and replay basic movement and environment 
 data for both platforms for now.
 
-
 Using the playmode in the Unity editor will let the user use
 the following commands via keybindings:
-
-r - start recording the data
-t - stop recording the data
-w - wipe the recorded or opened data in the temporary storage
-s - save all data from the temporary storage in a new local file
-l - load the local file's "test0" content into the temporary storage
-p - replay the data in the temporary storage
-
 
 Using the HoloLens Emulator will grant access to the following
 commands via tapping the cubes:
 
-upper left cube - start recording the data
-upper right cube - stop recording the data
-lower left cube - saving data (see "s" keybinding)
-lower right cube - loading data (see "l" keybinding)
-far left cube - wipe record (see "w" keybinding)
-far right cube - replay data (see "p" keybinding) 
+
+r - upper right cube:
+start recording the data
+
+t - upper left cube:
+stop recording the data
+
+s - lower left cube:
+save all data from the temporary storage in a new local file
+
+l - lower right cube:
+load the local file's "test0" content into the temporary storage
+
+w - far left cube:
+wipe the recorded or opened data in the temporary storage
+
+p - far right cube:
+replay the data in the temporary storage from the beginning
+
+no- very far right cube:
+pause the replay or continue playing from the paused moment
+
 
 Note: All commands will stop the recording process. There are very 
       basic replay functions (displaying the position and the gaze
