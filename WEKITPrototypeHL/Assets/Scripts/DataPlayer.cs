@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DataPlayer : MonoBehaviour
 {
+    bool isPlaying = false;
+
 	void Start ()
 	{
         
@@ -18,9 +20,12 @@ public class DataPlayer : MonoBehaviour
     //This function takes a list of SaveData and distributes them accordingly.
     public void Activate(List<SaveData> tempRecords)
     {
+        isPlaying = true;
+
         //Turns the ghost model visible.
         GetComponent<MeshRenderer>().enabled = true;
         transform.GetChild(0).GetComponent<MeshRenderer>().enabled = true;
+        transform.GetChild(1).GetComponent<MeshRenderer>().enabled = true;
 
         //Gives each entry of the recorded data to the PlayOverTimeCoroutine
         foreach (SaveData entry in tempRecords)
@@ -40,6 +45,9 @@ public class DataPlayer : MonoBehaviour
     IEnumerator PlayOverTime(SaveData tempData)
     {
         yield return new WaitForSeconds(tempData.TimeStamp);
-        Play(tempData);
+        if (isPlaying)
+        {
+            Play(tempData);
+        }
     }
 }

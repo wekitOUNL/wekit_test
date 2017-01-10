@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Xml.Serialization;
 using System.IO;
+using UnityEngine.VR.WSA.Input;
 
 
 public class UIDisplayAPI : MonoBehaviour
@@ -47,6 +48,8 @@ public class UIDisplayAPI : MonoBehaviour
         //Get the position of the user's head and the direction of the gaze.
         headPosition = Camera.main.transform.position;
         gazeDirection = Camera.main.transform.forward;
+
+        
 
 
         //Display the collected information in the UI.
@@ -120,6 +123,7 @@ public class UIDisplayAPI : MonoBehaviour
         //Wipe the temporarily stored data.
         StopRecording();
         recordList.Clear();
+        status = "wiped";
         Debug.Log("Wiped");
     }
 
