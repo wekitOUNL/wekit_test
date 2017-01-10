@@ -5,6 +5,7 @@ using UnityEngine;
 public class DataPlayer : MonoBehaviour
 {
     bool isPlaying = false;
+    int currentFrame = 0;
 
 	void Start ()
 	{
@@ -47,6 +48,7 @@ public class DataPlayer : MonoBehaviour
         yield return new WaitForSeconds(tempData.TimeStamp);
         if (isPlaying)
         {
+            currentFrame = (int) (tempData.TimeStamp / 0.04f);
             Play(tempData);
         }
     }
