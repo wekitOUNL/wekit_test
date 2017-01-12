@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,8 +17,7 @@ public class UIDisplayAPI : MonoBehaviour
     //Reference to the DataPlayer that handles the recordings.
     public DataPlayer MyPlayer;
 
-    public Vector3 Hand1Position;
-    public Vector3 Hand2Position;
+    public Vector3 [] HandPosition = new Vector3[] {Vector3.zero, Vector3.zero};
 
     //Private variables.
     List<SaveData> recordList = new List<SaveData>();
@@ -56,10 +56,14 @@ public class UIDisplayAPI : MonoBehaviour
 
 
         //Display the collected information in the UI.
-        output =    castHit.ToString() + Environment.NewLine + "pos:" + headPosition.ToString() + Environment.NewLine + 
-                    "dir:" + gazeDirection.ToString() + Environment.NewLine + "h1:" + Hand1Position.ToString() + Environment.NewLine + 
-                    "h2:" + Hand2Position.ToString() + Environment.NewLine + status + Environment.NewLine + Time.time + Environment.NewLine + 
-                    MyPlayer.currentFrame.ToString() + ", " + MyPlayer.isPlaying.ToString();
+        output =    castHit.ToString() + 
+                    Environment.NewLine + "pos:" + headPosition.ToString() + 
+                    Environment.NewLine + "dir:" + gazeDirection.ToString() + 
+                    Environment.NewLine + "h1:" + HandPosition[0].x + "," + HandPosition[0].y + "," + HandPosition[0].z +
+                    Environment.NewLine + "h2:" + HandPosition[1].x + "," + HandPosition[1].y + "," + HandPosition[1].z +
+                    Environment.NewLine + status + 
+                    Environment.NewLine + Time.time + 
+                    Environment.NewLine + MyPlayer.currentFrame.ToString() + ", " + MyPlayer.isPlaying.ToString();
 
 
         UIText.GetComponent<Text>().text = output;

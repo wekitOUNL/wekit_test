@@ -783,8 +783,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UIText: {fileID: 623032025}
   MyPlayer: {fileID: 2029689670}
-  Hand1Position: {x: 0, y: 0, z: 0}
-  Hand2Position: {x: 0, y: 0, z: 0}
+  HandPosition: []
 --- !u!4 &927055208
 Transform:
   m_ObjectHideFlags: 0
@@ -820,7 +819,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 055218a60f2165e4285b00b5265b783c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MyDataManager: {fileID: 0}
+  MyDataManager: {fileID: 927055207}
   TrackingObject: {fileID: 1478067127621650, guid: d485347ef27dbc7479085f806e5463a0,
     type: 2}
 --- !u!1 &983645146
