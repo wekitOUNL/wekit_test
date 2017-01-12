@@ -12,6 +12,11 @@ namespace HoloToolkit.Unity
     /// </summary>
     public partial class HandsTrackingManager : Singleton<HandsTrackingManager>
     {
+
+        public UIDisplayAPI MyDataCollector;
+
+        int count;
+
         /// <summary>
         /// HandDetected tracks the hand detected state.
         /// Returns true if the list of tracked hands is not empty.
@@ -34,13 +39,20 @@ namespace HoloToolkit.Unity
         }
         void Update()
         {
-            List<Vector3> handCoords = new List<Vector3>();
+            count = 0;
             foreach (KeyValuePair<uint, GameObject> obj in trackingObject)
             {
-                handCoords.Add(obj.Value.transform.position);
+                MyDataCollector.handPositions[count] = obj.Value.transform.position;
+                count++;
             }
-            Debug.Log(handCoords.Count);
-            handCoords.Clear();
+            if (count < 2)
+            {
+                if(count < 1)
+                {
+                    MyDataCollector.handPositions[0] = new Vector3(0, 0, 0);
+                }
+                MyDataCollector.handPositions[1] = new Vector3(0, 0, 0);
+            }
         }
 
         private void InteractionManager_SourceUpdated(InteractionSourceState state)

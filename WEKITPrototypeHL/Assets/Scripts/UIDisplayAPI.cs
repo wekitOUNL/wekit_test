@@ -16,6 +16,12 @@ public class UIDisplayAPI : MonoBehaviour
     //Reference to the DataPlayer that handles the recordings.
     public DataPlayer MyPlayer;
 
+    public List<Vector3> handPositions = new List<Vector3>()
+    {
+        new Vector3(0, 0, 0),
+        new Vector3(0, 0, 0)
+    };
+
     //Private variables.
     List<SaveData> recordList = new List<SaveData>();
     Vector3 headPosition;
@@ -53,7 +59,7 @@ public class UIDisplayAPI : MonoBehaviour
 
 
         //Display the collected information in the UI.
-        output = castHit.ToString() + Environment.NewLine + "pos:" + headPosition.ToString() + Environment.NewLine + "dir:" + gazeDirection.ToString() + Environment.NewLine + status + Environment.NewLine + Time.time + Environment.NewLine + MyPlayer.currentFrame.ToString() + ", " + MyPlayer.isPlaying.ToString();
+        output = castHit.ToString() + Environment.NewLine + "pos:" + headPosition.ToString() + Environment.NewLine + "dir:" + gazeDirection.ToString() + Environment.NewLine + handPositions.Count + Environment.NewLine + status + Environment.NewLine + Time.time + Environment.NewLine + MyPlayer.currentFrame.ToString() + ", " + MyPlayer.isPlaying.ToString();
 
 
         UIText.GetComponent<Text>().text = output;
@@ -107,7 +113,7 @@ public class UIDisplayAPI : MonoBehaviour
     public void Record()
     {
         //Add the data in our current frame to the list of recorded data.
-        recordList.Add(new SaveData(headPosition, gazeDirection, castHit, recordList.Count));
+        recordList.Add(new SaveData(headPosition, gazeDirection, castHit, recordList.Count, handPositions));
     }
 
     public void StopRecording()
@@ -225,6 +231,8 @@ public class SaveData
 
     public Vector3 HeadPosition;
     public Vector3 GazeDirection;
+    public Vector3 Hand1Position;
+    public Vector3 Hand2Position;
     public bool CastHit;
 
     public SaveData()
@@ -232,11 +240,13 @@ public class SaveData
 
     }
 
-    public SaveData(Vector3 hP, Vector3 gD, bool cH, int tS)
+    public SaveData(Vector3 hP, Vector3 gD, bool cH, int tS, List<Vector3> haP)
     {
         HeadPosition = hP;
         GazeDirection = gD;
         CastHit = cH;
         TimeStamp = tS * 0.04f;
+        Hand1Position = haP[0];
+        Hand2Position = haP[1]; 
     }
 }

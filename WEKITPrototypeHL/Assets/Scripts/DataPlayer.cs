@@ -6,6 +6,9 @@ public class DataPlayer : MonoBehaviour
 {
     public bool isPlaying = false;
     public int currentFrame = 0;
+    public GameObject Hand1;
+    public GameObject Hand2;
+
     float startTime = 0;
     List<SaveData> myRecording;
 
@@ -70,5 +73,27 @@ public class DataPlayer : MonoBehaviour
     {
         GetComponent<Transform>().transform.position = tempData.HeadPosition;
         GetComponent<Transform>().transform.rotation = Quaternion.LookRotation(tempData.GazeDirection);
+
+        if(tempData.Hand1Position != new Vector3 (0,0,0))
+        {
+            Hand1.GetComponent<MeshRenderer>().enabled = true;
+            Hand1.transform.position = tempData.Hand1Position;
+        }
+
+        else
+        {
+            Hand1.GetComponent<MeshRenderer>().enabled = false;
+        }
+
+        if (tempData.Hand2Position != new Vector3(0, 0, 0))
+        {
+            Hand2.GetComponent<MeshRenderer>().enabled = true;
+            Hand2.transform.position = tempData.Hand1Position;
+        }
+
+        else
+        {
+            Hand2.GetComponent<MeshRenderer>().enabled = false;
+        }
     }
 }
