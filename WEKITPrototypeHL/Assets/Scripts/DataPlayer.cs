@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class DataPlayer : MonoBehaviour
 {
+    public GameObject Hand1;
+    public GameObject Hand2;
+
     public bool isPlaying = false;
     public int currentFrame = 0;
+
+
     float startTime = 0;
     List<SaveData> myRecording;
 
@@ -48,6 +53,8 @@ public class DataPlayer : MonoBehaviour
         GetComponent<MeshRenderer>().enabled = true;
         transform.GetChild(0).GetComponent<MeshRenderer>().enabled = true;
         transform.GetChild(1).GetComponent<MeshRenderer>().enabled = true;
+        Hand1.GetComponent<MeshRenderer>().enabled = true;
+        Hand2.GetComponent<MeshRenderer>().enabled = true;
     }
 
     //This function stops playing the recording; or if it was already stopped
@@ -70,5 +77,8 @@ public class DataPlayer : MonoBehaviour
     {
         GetComponent<Transform>().transform.position = tempData.HeadPosition;
         GetComponent<Transform>().transform.rotation = Quaternion.LookRotation(tempData.GazeDirection);
+
+        Hand1.GetComponent<Transform>().transform.position = tempData.HandPosition1;
+        Hand2.GetComponent<Transform>().transform.position = tempData.HandPosition2;
     }
 }

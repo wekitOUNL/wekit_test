@@ -43,7 +43,7 @@ namespace HoloToolkit.Unity
             {
                 handPos[i] = myHands[i].transform.position;
             }
-            MyDataManager.HandPosition = handPos;
+            MyDataManager.HandPositions = handPos;
         }
 
         private void InteractionManager_SourceUpdated(InteractionSourceState state)

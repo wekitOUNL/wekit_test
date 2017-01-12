@@ -17,7 +17,7 @@ public class UIDisplayAPI : MonoBehaviour
     //Reference to the DataPlayer that handles the recordings.
     public DataPlayer MyPlayer;
 
-    public Vector3 [] HandPosition = new Vector3[] {Vector3.zero, Vector3.zero};
+    public Vector3 [] HandPositions = new Vector3[] {Vector3.zero, Vector3.zero};
 
     //Private variables.
     List<SaveData> recordList = new List<SaveData>();
@@ -59,8 +59,8 @@ public class UIDisplayAPI : MonoBehaviour
         output =    castHit.ToString() + 
                     Environment.NewLine + "pos:" + headPosition.ToString() + 
                     Environment.NewLine + "dir:" + gazeDirection.ToString() + 
-                    Environment.NewLine + "h1:" + HandPosition[0].x + "," + HandPosition[0].y + "," + HandPosition[0].z +
-                    Environment.NewLine + "h2:" + HandPosition[1].x + "," + HandPosition[1].y + "," + HandPosition[1].z +
+                    Environment.NewLine + "h1:" + HandPositions[0].x + "," + HandPositions[0].y + "," + HandPositions[0].z +
+                    Environment.NewLine + "h2:" + HandPositions[1].x + "," + HandPositions[1].y + "," + HandPositions[1].z +
                     Environment.NewLine + status + 
                     Environment.NewLine + Time.time + 
                     Environment.NewLine + MyPlayer.currentFrame.ToString() + ", " + MyPlayer.isPlaying.ToString();
@@ -117,7 +117,7 @@ public class UIDisplayAPI : MonoBehaviour
     public void Record()
     {
         //Add the data in our current frame to the list of recorded data.
-        recordList.Add(new SaveData(headPosition, gazeDirection, castHit, recordList.Count));
+        recordList.Add(new SaveData(headPosition, gazeDirection, castHit, recordList.Count, HandPositions));
     }
 
     public void StopRecording()
@@ -233,6 +233,8 @@ public class SaveData
 {
     public float TimeStamp;
 
+    public Vector3 HandPosition1;
+    public Vector3 HandPosition2;
     public Vector3 HeadPosition;
     public Vector3 GazeDirection;
     public bool CastHit;
@@ -242,11 +244,14 @@ public class SaveData
 
     }
 
-    public SaveData(Vector3 hP, Vector3 gD, bool cH, int tS)
+    public SaveData(Vector3 hP, Vector3 gD, bool cH, int tS, Vector3[] haP)
     {
         HeadPosition = hP;
         GazeDirection = gD;
         CastHit = cH;
+        HandPosition1 = haP[0];
+        HandPosition2 = haP[1];
+
         TimeStamp = tS * 0.04f;
     }
 }
