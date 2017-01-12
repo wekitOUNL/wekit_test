@@ -21,8 +21,11 @@ namespace HoloToolkit.Unity
             get { return trackedHands.Count > 0; }
         }
 
+
+        public UIDisplayAPI MyDataManager;
         public GameObject TrackingObject;
 
+        bool firstHand;
         private HashSet<uint> trackedHands = new HashSet<uint>();
         private Dictionary<uint, GameObject> trackingObject = new Dictionary<uint, GameObject>();
        
@@ -34,13 +37,20 @@ namespace HoloToolkit.Unity
         }
         void Update()
         {
-            List<Vector3> handCoords = new List<Vector3>();
-            foreach (KeyValuePair<uint, GameObject> obj in trackingObject)
+            firstHand = true;
+            foreach(uint hand in trackedHands)
             {
-                handCoords.Add(obj.Value.transform.position);
+                if(firstHand)
+                {
+                    MyDataManager.Hand1Position = trackingObject[hand].transform.position;
+                } 
+                else
+                {
+                    MyDataManager.Hand2Position = trackingObject[hand].transform.position;
+                }
+
+                firstHand = false;
             }
-            Debug.Log(handCoords.Count);
-            handCoords.Clear();
         }
 
         private void InteractionManager_SourceUpdated(InteractionSourceState state)

@@ -16,6 +16,9 @@ public class UIDisplayAPI : MonoBehaviour
     //Reference to the DataPlayer that handles the recordings.
     public DataPlayer MyPlayer;
 
+    public Vector3 Hand1Position;
+    public Vector3 Hand2Position;
+
     //Private variables.
     List<SaveData> recordList = new List<SaveData>();
     Vector3 headPosition;
@@ -49,11 +52,14 @@ public class UIDisplayAPI : MonoBehaviour
         headPosition = Camera.main.transform.position;
         gazeDirection = Camera.main.transform.forward;
 
-        
+
 
 
         //Display the collected information in the UI.
-        output = castHit.ToString() + Environment.NewLine + "pos:" + headPosition.ToString() + Environment.NewLine + "dir:" + gazeDirection.ToString() + Environment.NewLine + status + Environment.NewLine + Time.time + Environment.NewLine + MyPlayer.currentFrame.ToString() + ", " + MyPlayer.isPlaying.ToString();
+        output =    castHit.ToString() + Environment.NewLine + "pos:" + headPosition.ToString() + Environment.NewLine + 
+                    "dir:" + gazeDirection.ToString() + Environment.NewLine + "h1:" + Hand1Position.ToString() + Environment.NewLine + 
+                    "h2:" + Hand2Position.ToString() + Environment.NewLine + status + Environment.NewLine + Time.time + Environment.NewLine + 
+                    MyPlayer.currentFrame.ToString() + ", " + MyPlayer.isPlaying.ToString();
 
 
         UIText.GetComponent<Text>().text = output;
