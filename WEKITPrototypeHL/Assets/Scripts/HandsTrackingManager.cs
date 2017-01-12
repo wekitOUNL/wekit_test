@@ -25,7 +25,6 @@ namespace HoloToolkit.Unity
         public UIDisplayAPI MyDataManager;
         public GameObject TrackingObject;
 
-        bool firstHand;
         private HashSet<uint> trackedHands = new HashSet<uint>();
         private Dictionary<uint, GameObject> trackingObject = new Dictionary<uint, GameObject>();
        
@@ -35,27 +34,14 @@ namespace HoloToolkit.Unity
             InteractionManager.SourceLost += InteractionManager_SourceLost;
             InteractionManager.SourceUpdated += InteractionManager_SourceUpdated;
         }
+
         void Update()
         {
-            firstHand = true;
-            foreach(uint hand in trackedHands)
-            {
-                if(firstHand)
-                {
-                    MyDataManager.Hand1Position = trackingObject[hand].transform.position;
-                } 
-                else
-                {
-                    MyDataManager.Hand2Position = trackingObject[hand].transform.position;
-                }
 
-                firstHand = false;
-            }
         }
 
         private void InteractionManager_SourceUpdated(InteractionSourceState state)
         {
-            uint id = state.source.id;
             Vector3 pos;
 
             if (state.source.kind == InteractionSourceKind.Hand)
@@ -65,6 +51,7 @@ namespace HoloToolkit.Unity
                     if (state.properties.location.TryGetPosition(out pos))
                     {
                         trackingObject[state.source.id].transform.position = pos;
+                        MyDataManager.Hand1Position = pos;
                     }
                 }
             }
