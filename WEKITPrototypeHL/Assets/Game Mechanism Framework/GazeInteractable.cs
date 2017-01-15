@@ -6,14 +6,16 @@ namespace GameMechanism
 {
     public class GazeInteractable : MonoBehaviour
     {
-        // Use this for initialization
-        void Start()
+        public float Accuracy;
+
+        public virtual void Enter()
         {
+            Debug.Log("Entered gaze");
         }
 
-        // Update is called once per frame
-        void Update()
+        public virtual void Exit()
         {
+            Debug.Log("Exited gaze");
         }
     }
 }

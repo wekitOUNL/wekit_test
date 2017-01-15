@@ -1,19 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace GameMechanism
 {
-    public class DirectedMovementTarget : MonoBehaviour
+    public class DirectedMovementTarget : PositionInteractable
     {
-        // Use this for initialization
-        void Start()
-        {
-        }
+        public UnityEvent Result;
+        public bool DisableOnFocus;
 
-        // Update is called once per frame
-        void Update()
+        public override void Enter()
         {
+            if (Result != null)
+            {
+                Result.Invoke();
+            }
+            if (DisableOnFocus)
+            {
+                this.enabled = false;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }
