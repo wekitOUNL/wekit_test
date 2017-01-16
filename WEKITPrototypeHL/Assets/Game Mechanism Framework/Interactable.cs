@@ -9,12 +9,17 @@ namespace GameMechanism
     {
         public UnityEvent EnterEvent;
         public GameObject UiPointerObject;
+        private UiPointer _uiPointer;
 
         private void Awake()
         {
             if (!UiPointerObject)
             {
-                UiPointerObject = Instantiate(UiPointerObject);
+                _uiPointer = Instantiate(UiPointerObject).GetComponent<UiPointer>();
+                if (_uiPointer!=null)
+                {
+                    _uiPointer.TargetObject = gameObject;
+                }
             }
             else
             {
