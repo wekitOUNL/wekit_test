@@ -6,7 +6,17 @@ namespace GameMechanism
 {
     public class Cursor : MonoBehaviour
     {
-        public GazeManager GazeManager;
+        public GMFGazeManager GazeManager;
+        
+        /// <summary>
+        /// The rotation the cursor object will have when not hitting anything. Set at start.
+        /// </summary>
+        private Quaternion standardRotation;
+
+        void Start()
+        {
+            standardRotation = transform.rotation;
+        }
 
         void Update()
         {
@@ -18,7 +28,7 @@ namespace GameMechanism
             else
             {
                 transform.position = GazeManager.CameraPos + GazeManager.CameraForward * GazeManager.MaxDistance;
-                transform.rotation= Quaternion.identity;
+                transform.rotation = standardRotation;
             }
         }
     }

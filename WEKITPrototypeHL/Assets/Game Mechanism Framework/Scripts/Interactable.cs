@@ -14,11 +14,18 @@ namespace GameMechanism
 
         public void Enter()
         {
+            Debug.Log("Enter");
             if (EnterEvents!= null)
             {
                 EnterEvents.Invoke();
             }
             gameObject.SetActive(!SingleUse);
+        }
+
+        //Necessary for checkbox to show on component
+        void Start()
+        {
+            
         }
     }
 }
