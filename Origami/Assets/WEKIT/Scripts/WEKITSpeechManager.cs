@@ -5,12 +5,18 @@ using UnityEngine.Windows.Speech;
 using HoloToolkit.Unity;
 using HoloToolkit.Unity.InputModule;
 
+/// <summary>
+/// class to handle speech commands as alternative input.
+/// 
+/// </summary>
 public class WEKITSpeechManager : Singleton<WEKITSpeechManager>
 {
     KeywordRecognizer keywordRecognizer = null;
     Dictionary<string, System.Action> keywords = new Dictionary<string, System.Action>();
 
-    // Use this for initialization
+    /// <summary>
+    /// initializes the list of keywords to listen to and starts listening.
+    /// </summary>
     void Start()
     {
         keywords.Add("Menu", () =>
@@ -54,6 +60,10 @@ public class WEKITSpeechManager : Singleton<WEKITSpeechManager>
         keywordRecognizer.Start();
     }
 
+    /// <summary>
+    /// handler method for recognized keywords.
+    /// </summary>
+    /// <param name="args"></param>
     private void KeywordRecognizer_OnPhraseRecognized(PhraseRecognizedEventArgs args)
     {
         System.Action keywordAction;

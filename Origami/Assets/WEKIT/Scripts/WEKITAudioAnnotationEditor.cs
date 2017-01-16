@@ -5,9 +5,15 @@ using UnityEngine;
 using HoloToolkit.Unity.InputModule;
 using System;
 
+/// <summary>
+/// editor for audio based annotations.
+/// Inherits from WEKITAnnotationBaseEditor.
+/// Provides functionality for recording and playing audio files.
+/// Implementation uses two different functionalities: the default Unity mic style and the holotoolkit version.
+/// The Unity-Version allows in memory recording of audio. The HoloToolkit-Version allows for recording to files.
+/// </summary>
 [RequireComponent(typeof(AudioSource))]
-
-public class WEKITAudioAnnotationEditor : WEKITAnnotationBaseEditor, IFocusable
+public class WEKITAudioAnnotationEditor : WEKITAnnotationBaseEditor
 {
     
     // set to false to use the holotoolkit microphone approach
@@ -66,28 +72,28 @@ public class WEKITAudioAnnotationEditor : WEKITAnnotationBaseEditor, IFocusable
     //A handle to the attached AudioSource  
     private AudioSource goAudioSource;
 
-    // default color of this mesh
-    private Color color;
-
     private bool isRecording = false;
 
     private float[] audioBuffer;
 
     private int _numChannels = 2;
 
-    //Use this for initialization  
-    void Start()
+    /// <summary>
+    /// initializes the attached audiosource. 
+    /// </summary>
+    public new void Start()
     {
+        base.Start();
         //Get the attached AudioSource component  
         goAudioSource = this.GetComponent<AudioSource>();
 
-        color = this.gameObject.GetComponent<Renderer>().material.color;
-        foreach (Renderer rend in this.gameObject.GetComponentsInChildren<Renderer>())
-        {
-            color = rend.material.color;
-        }
     }
 
+    /// <summary>
+    /// method only used for holotoolkit-recording version. Callback to receive recorded data.
+    /// </summary>
+    /// <param name="buffer"></param>
+    /// <param name="numChannels"></param>
     private void OnAudioFilterRead(float[] buffer, int numChannels)
     {
         if (useUnityMic)
@@ -119,7 +125,9 @@ public class WEKITAudioAnnotationEditor : WEKITAnnotationBaseEditor, IFocusable
         averageAmplitude = sumOfValues / buffer.Length;
     }
 
-
+    /// <summary>
+    /// allows for rehearsal while recording in the holotoolkit version.
+    /// </summary>
     private void Awake()
     {
         if (useUnityMic)
@@ -133,13 +141,25 @@ public class WEKITAudioAnnotationEditor : WEKITAnnotationBaseEditor, IFocusable
 
     }
 
+    /// <summary>
+    /// makes sure, the audio annotation object is displayed in the right color according to audio mode.
+    /// Green: audio playing
+    /// Red: audio recording.
+    /// </summary>
     void Update()
     {
         if (isRecording)
         {
-            CheckForErrorOnCall(MicStream.MicSetGain(InputGain));
-            float blue = (minSize + averageAmplitude + 1 / minSize + 2) * 255;
-            changeColor(new Color(255, 0, blue));
+            if (useUnityMic)
+            {
+                changeColor(Color.red);
+            }
+            else
+            {
+                CheckForErrorOnCall(MicStream.MicSetGain(InputGain));
+                float blue = (minSize + averageAmplitude + 1 / minSize + 2) * 255;
+                changeColor(new Color(255, 0, blue));
+            }
         } else if (goAudioSource.isPlaying)
         {
             changeColor(Color.green);
@@ -147,6 +167,9 @@ public class WEKITAudioAnnotationEditor : WEKITAnnotationBaseEditor, IFocusable
     }
 
 
+    /// <summary>
+    /// starts the recording.
+    /// </summary>
     void StartRecording()
     {
         WEKITSpeechManager.Instance.PauseRecognizer();
@@ -200,6 +223,9 @@ public class WEKITAudioAnnotationEditor : WEKITAnnotationBaseEditor, IFocusable
     }
 
 
+    /// <summary>
+    ///  stops the recording.
+    /// </summary>
     void StopRecording()
     {
         isRecording = false;
@@ -221,9 +247,13 @@ public class WEKITAudioAnnotationEditor : WEKITAnnotationBaseEditor, IFocusable
         Debug.Log("Stopped audio recording.");
         WEKITSpeechManager.Instance.ContinueRecognizer();
         Debug.Log("Listening to voice commands again.");
-        changeColor(color);
+        changeColor(currentColor);
     }
 
+
+    /// <summary>
+    /// starts playing the recorded audio.
+    /// </summary>
     void PlayAudio()
     {
         if (isRecording)
@@ -245,6 +275,9 @@ public class WEKITAudioAnnotationEditor : WEKITAnnotationBaseEditor, IFocusable
     }
 
 
+    /// <summary>
+    /// stops playing the recorded audio.
+    /// </summary>
     void StopAudio()
     {
         if (isRecording)
@@ -255,34 +288,14 @@ public class WEKITAudioAnnotationEditor : WEKITAnnotationBaseEditor, IFocusable
         {
             goAudioSource.Stop();
         }
-        changeColor(color);
+        changeColor(currentColor);
     }
 
 
-    public void OnFocusEnter()
-    {
-        this.gameObject.transform.localScale *= 1.1f;
-        changeColor(Color.yellow);
-    }
-
-
-    public void OnFocusExit()
-    {
-        this.gameObject.transform.localScale /= 1.1f;
-        changeColor(color);
-    }
-
-
-    private void changeColor(Color color)
-    {
-        this.gameObject.GetComponent<Renderer>().material.color = color;
-        foreach (Renderer rend in this.gameObject.GetComponentsInChildren<Renderer>())
-        {
-            rend.material.color = color;
-        }
-    }
-
-
+    /// <summary>
+    /// holotoolkit recording method to check for errors in the underlying microphone calls.
+    /// </summary>
+    /// <param name="returnCode"></param>
     private void CheckForErrorOnCall(int returnCode)
     {
         MicStream.CheckForErrorOnCall(returnCode);
@@ -292,6 +305,10 @@ public class WEKITAudioAnnotationEditor : WEKITAnnotationBaseEditor, IFocusable
         // on device, deal with all the ways that we could suspend our program in as few lines as possible
         private void OnApplicationPause(bool pause)
         {
+            if (useUnityMic)
+            {
+                return;
+            }
             if (pause)
             {
                 CheckForErrorOnCall(MicStream.MicPause());

@@ -3,15 +3,23 @@ using UnityEngine.VR.WSA.Input;
 using HoloToolkit.Unity;
 using HoloToolkit.Unity.InputModule;
 
+/// <summary>
+/// Singleton class to handle recognized gestures and forward the coresponding event to the object gazed at.
+/// </summary>
 public class WEKITGazeGestureManager : Singleton<WEKITGazeGestureManager>
 {
 
-    // Represents the hologram that is currently being gazed at.
+
+    /// <summary>
+    /// Represents the hologram that is currently being gazed at.
+    /// </summary>
     public GameObject FocusedObject { get; private set; }
 
     GestureRecognizer recognizer;
 
-    // Use this for initialization
+    /// <summary>
+    /// initializes the underlying GestureRecognizer and its event handler methods.
+    /// </summary>
     void Start()
     {
         // Set up a GestureRecognizer to detect Select gestures.
@@ -28,7 +36,10 @@ public class WEKITGazeGestureManager : Singleton<WEKITGazeGestureManager>
         recognizer.StartCapturingGestures();
     }
 
-    // Update is called once per frame
+
+    /// <summary>
+    /// checks for changes in focus objects.
+    /// </summary>
     void Update()
     {
         // Figure out which hologram is focused this frame.

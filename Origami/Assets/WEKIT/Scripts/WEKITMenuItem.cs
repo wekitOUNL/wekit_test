@@ -3,37 +3,41 @@ using System.Collections.Generic;
 using UnityEngine;
 using HoloToolkit.Unity.InputModule;
 
-/*
- * represents a menu item. A menu item is instantiated by WEKITMenuBase, 
- * which is the object for which the menu has been opened.
- */
-public class WEKITMenuItem : MonoBehaviour, IFocusable, IInputClickHandler {
+/// <summary>
+/// represents a menu item. A menu item is instantiated by WEKITMenuBase, 
+/// which is the object for which the menu has been opened.
+/// </summary>
+public class WEKITMenuItem : WEKITFocusableObject, IInputClickHandler {
 
-    public GameObject rootGameObject { get; set; } // the game object this menu is opened for
+    /// <summary>
+    /// the game object this menu is opened for.
+    /// </summary>
+    public GameObject rootGameObject { get; set; }
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
-
-    public void OnFocusEnter()
+    /// <summary>
+    /// highlights this menu item. Overloads WEKITFocusableObject.
+    /// </summary>
+    public new void OnFocusEnter()
     {
+        base.OnFocusEnter();
         //Debug.Log("WEKITMenuItem.OnFocusEnter: " + this.gameObject.name + ", " + GazeManager.Instance.HitObject);
-        this.gameObject.GetComponent<TextMesh>().color = Color.yellow;
+        this.gameObject.GetComponent<TextMesh>().color = FocusColor;
     }
 
-    public void OnFocusExit()
+    /// <summary>
+    /// resets highlighting for this menu item. Overloads WEKITFocusableObject.
+    /// </summary>
+    public new void OnFocusExit()
     {
+        base.OnFocusExit();
         //Debug.Log("WEKITMenuItem.OnFocusExit: " + this.gameObject.name + ", " + GazeManager.Instance.HitObject);
         this.gameObject.GetComponent<TextMesh>().color = Color.white;
     }
 
+    /// <summary>
+    /// activates this menuItem.
+    /// </summary>
+    /// <param name="eventData"></param>
     public void OnInputClicked (InputEventData eventData)
     {
         //Debug.Log("WEKITMenuItem.OnInputClicked: " + eventData.ToString() + ", " + this.gameObject.name + ", " + GazeManager.Instance.HitObject);
@@ -42,6 +46,11 @@ public class WEKITMenuItem : MonoBehaviour, IFocusable, IInputClickHandler {
         this.PerformMenuAction(name);
     }
 
+    /// <summary>
+    /// performs the action associated with this menuItem. 
+    /// Sends the message to the object this item has been opened for.
+    /// </summary>
+    /// <param name="message"></param>
     void PerformMenuAction(string message)
     {
         if (rootGameObject != null)

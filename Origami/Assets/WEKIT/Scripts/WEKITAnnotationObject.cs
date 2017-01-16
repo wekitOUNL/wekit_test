@@ -2,14 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// class to be attached to any annotation prefab.
+/// makes sure, line between annotation and annotated object is drawn.
+/// </summary>
 public class WEKITAnnotationObject : MonoBehaviour {
 
     public GameObject annotatedObject;
 
     private LineRenderer lineRenderer;
 
-	// Use this for initialization
-	void Start () {
+    /// <summary>
+    /// initialzes the line renderer.
+    /// </summary>
+    void Start () {
         lineRenderer = gameObject.AddComponent<LineRenderer>();
         lineRenderer.material = new Material(Shader.Find("Standard"));
         lineRenderer.widthMultiplier = 0.001f;
@@ -25,7 +31,10 @@ public class WEKITAnnotationObject : MonoBehaviour {
         }
     }
 
-    // Update is called once per frame
+
+    /// <summary>
+    /// updates the line renderer to changed object positions.
+    /// </summary>
     void Update () {
         if (annotatedObject != null)
         {

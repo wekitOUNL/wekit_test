@@ -3,12 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using HoloToolkit.Unity;
 
+/// <summary>
+/// class to manage a context menu to popup, when no object has been clicked.
+/// Inherits from Singleton<>.
+/// </summary>
 public class WEKITGlobalMenuActions : Singleton<WEKITGlobalMenuActions> {
 
     [Tooltip("Drag the gameObject prefab asset you want to display.")]
     public GameObject gameObjectPrefab;
 
 
+    /// <summary>
+    /// adds a new annotatable game object to the scene. 
+    /// </summary>
     void AddGameObject()
     {
         //Debug.Log("WEKITAnnotatable.AddAnnotation");
