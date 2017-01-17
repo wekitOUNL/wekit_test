@@ -20,6 +20,7 @@ public class WEKITGlobalMenuActions : Singleton<WEKITGlobalMenuActions> {
     {
         //Debug.Log("WEKITAnnotatable.AddAnnotation");
         GameObject newObject = (GameObject)Instantiate(Instance.gameObjectPrefab);
+        newObject.SetActive(true);
 
         // Do a raycast into the world based on the user's
         // head position and orientation.
@@ -31,6 +32,9 @@ public class WEKITGlobalMenuActions : Singleton<WEKITGlobalMenuActions> {
 
         Vector3 targetPosition = WEKITUtilities.placeObject(Camera.main.transform, 0.5f, 3.0f, 0.2f);
         newObject.transform.position = targetPosition;
+
+        // the new object is active by default.
+        newObject.GetComponent<WEKITAnnotatable>().SetActive();
 
     }
 }

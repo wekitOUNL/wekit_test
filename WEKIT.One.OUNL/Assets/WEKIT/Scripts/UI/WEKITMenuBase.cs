@@ -24,8 +24,9 @@ public class WEKITMenuBase : MonoBehaviour, IInputClickHandler {
     public string[] menuItemNames;
 
     private static GameObject[] menuItems;
+    private static bool menuOpened = false;
 
-    private static float menuOffset = 0.03f; // spacial offset between to menu entries
+    private static float menuOffset = 0.04f; // spacial offset between to menu entries
 
     /// <summary>
     /// handles the input click to open the menu.
@@ -42,11 +43,20 @@ public class WEKITMenuBase : MonoBehaviour, IInputClickHandler {
     /// </summary>
     void OpenMenu()
     {
-        CloseMenu();
+        // no menu item prefab - no menu!
         if (WEKITGlobalsManager.Instance.MenuItem == null)
         {
             return;
         }
+
+        // if a menu is already opened - just close it
+        if (menuOpened)
+        {
+            CloseMenu();
+            return;
+        }
+
+        menuOpened = true;
 
         Vector3 targetPoint = WEKITUtilities.placeObject(Camera.main.transform, 0.5f, 3.0f, 0.2f);
 
@@ -72,6 +82,7 @@ public class WEKITMenuBase : MonoBehaviour, IInputClickHandler {
     /// </summary>
     public static void CloseMenu()
     {
+        menuOpened = false;
         if (menuItems != null)
         {
             foreach (GameObject menuItem in menuItems)

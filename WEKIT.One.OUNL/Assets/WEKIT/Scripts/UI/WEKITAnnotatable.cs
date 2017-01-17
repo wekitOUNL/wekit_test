@@ -52,6 +52,11 @@ public class WEKITAnnotatable : WEKITFocusableObject {
             Debug.Log("StackTrace: " + e.StackTrace);
         }
         isActive = true;
+
+        foreach (GameObject go in annotations)
+        {
+            go.SetActive(true);
+        }
     }
 
 
@@ -94,6 +99,12 @@ public class WEKITAnnotatable : WEKITFocusableObject {
             Debug.Log("Could not remove direction indicator: " + e.Message);
             Debug.Log("StackTrace: " + e.StackTrace);
         }
+
+        foreach (GameObject go in annotations)
+        {
+            go.SetActive(false);
+        }
+
     }
 
 
@@ -105,8 +116,12 @@ public class WEKITAnnotatable : WEKITFocusableObject {
     /// <returns></returns>
     private GameObject AddAnnotation(GameObject AnnotationPrefab)
     {
+        // if you work on this object, it should be the active one.
+        SetActive();
+
         //Debug.Log("WEKITAnnotatable.AddAnnotation");
         GameObject annotationObject = (GameObject)Instantiate(AnnotationPrefab);
+        annotationObject.SetActive(true);
 
         WEKITAnnotationObject ao = annotationObject.AddComponent<WEKITAnnotationObject>();
         ao.annotatedObject = this.gameObject;
