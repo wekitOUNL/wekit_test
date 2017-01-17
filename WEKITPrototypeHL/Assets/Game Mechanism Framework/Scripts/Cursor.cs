@@ -11,16 +11,16 @@ namespace GameMechanism
         /// <summary>
         /// The rotation the cursor object will have when not hitting anything. Set at start.
         /// </summary>
-        private Quaternion standardRotation;
+        private Quaternion _standardRotation;
 
         void Start()
         {
-            standardRotation = transform.rotation;
+            _standardRotation = transform.rotation;
         }
 
         void Update()
         {
-            if (GazeManager.hit)
+            if (GazeManager.Hit)
             {
                 transform.position = GazeManager.HitInfo.point;
                 transform.rotation = Quaternion.FromToRotation(Vector3.up, GazeManager.HitInfo.normal);
@@ -28,7 +28,7 @@ namespace GameMechanism
             else
             {
                 transform.position = GazeManager.CameraPos + GazeManager.CameraForward * GazeManager.MaxDistance;
-                transform.rotation = standardRotation;
+                transform.rotation = _standardRotation;
             }
         }
     }

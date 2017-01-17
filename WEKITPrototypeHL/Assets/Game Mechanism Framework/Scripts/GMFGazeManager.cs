@@ -8,10 +8,10 @@ namespace GameMechanism
     {
         [HideInInspector]
         public RaycastHit HitInfo;
-        private GameObject LastHit;
+        private GameObject _lastHit;
         public float MaxDistance=5;
         [HideInInspector]
-        public bool hit;
+        public bool Hit;
         [HideInInspector]
         public Vector3 CameraPos, CameraForward;
         // Update is called once per frame
@@ -19,21 +19,29 @@ namespace GameMechanism
         {
             CameraPos = Camera.main.transform.position;
             CameraForward = Camera.main.transform.forward;
-            hit = Physics.Raycast(CameraPos, CameraForward, out HitInfo,
+            Hit = Physics.Raycast(CameraPos, CameraForward, out HitInfo,
                 MaxDistance);
-            if (hit)
+            if (Hit)
             {
                 HandleTargets();
+            }
+            else
+            {
+                if (_lastHit != null)
+                {
+                    //Possible Exit Event here
+                    _lastHit = null;
+                }
             }
         }
 
         void HandleTargets()
         {
             GameObject go = HitInfo.collider.gameObject;
-            if (go != LastHit)
+            if (go != _lastHit)
             {
-                LastHit = go;
-                Interactable_Gaze target = LastHit.GetComponent<Interactable_Gaze>();
+                _lastHit = go;
+                Interactable_Gaze target = _lastHit.GetComponent<Interactable_Gaze>();
                 if (target != null)
                 {
                     target.Enter();
