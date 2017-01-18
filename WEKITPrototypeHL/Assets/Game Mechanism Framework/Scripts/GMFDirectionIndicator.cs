@@ -1,4 +1,4 @@
-﻿// Based on the HoloToolkit.Unity DirectionIndicator class, with adjusted variable ranges.
+﻿// Based on the HoloToolkit.Unity DirectionIndicator class, with adjusted variable ranges and the option to automatically find a cursor if none is assigned.
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
@@ -12,8 +12,12 @@ namespace GameMechanism
     /// </summary>
     public class GMFDirectionIndicator : MonoBehaviour
     {
+
         [Tooltip("The Cursor object the direction indicator will be positioned around.")]
         public GameObject Cursor;
+
+        [Tooltip("If true, finds a GameObject called Cursor in the scene if none is assigned. Only use if necessary, as this is relatively performance-heavy.")]
+        public bool FindCursor;
 
         [Tooltip("Model to display the direction to the object this script is attached to.")]
         public GameObject DirectionIndicatorObject;
@@ -45,7 +49,11 @@ namespace GameMechanism
         {
             if (Cursor == null)
             {
-                Debug.LogError("Please include a GameObject for the cursor.");
+                Debug.LogError("No cursor found - looking for GameObject named Cursor");
+                if (FindCursor)
+                {
+                    Cursor=GameObject.Find("Cursor");
+                }
             }
 
             if (DirectionIndicatorObject == null)
