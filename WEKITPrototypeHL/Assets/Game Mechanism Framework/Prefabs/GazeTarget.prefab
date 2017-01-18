@@ -106,10 +106,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Cursor: {fileID: 0}
+  FindCursor: 0
   DirectionIndicatorObject: {fileID: 133742, guid: e123cce6ed201f447a1a4b3346f242e9,
     type: 2}
   DirectionIndicatorColor: {r: 0, g: 0, b: 1, a: 1}
-  VisibilitySafeFactor: 0.3
+  VisibilitySafeFactor: 0.4
   MetersFromCursor: 0.1
 --- !u!114 &114867891226291384
 MonoBehaviour:
@@ -122,9 +123,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dd684750e021f444b006dedec554a1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DisableCondition: 0
   EnterEvents:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  SingleUse: 0
+  ExitEvents:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null

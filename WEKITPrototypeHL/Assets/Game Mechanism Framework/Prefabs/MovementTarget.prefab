@@ -105,12 +105,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4546eb3fc65b53b4086e7cce90b46607, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DisableCondition: 0
   EnterEvents:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  SingleUse: 0
+  ExitEvents:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!114 &114875641686236648
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -123,8 +128,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Cursor: {fileID: 0}
+  FindCursor: 0
   DirectionIndicatorObject: {fileID: 133742, guid: e123cce6ed201f447a1a4b3346f242e9,
     type: 2}
   DirectionIndicatorColor: {r: 0, g: 1, b: 0, a: 1}
-  VisibilitySafeFactor: 0.3
+  VisibilitySafeFactor: 0.4
   MetersFromCursor: 0.1

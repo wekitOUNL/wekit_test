@@ -7,19 +7,43 @@ namespace GameMechanism
 {
     public class Interactable : MonoBehaviour
     {
-        public UnityEvent EnterEvents;
 
-        [Tooltip("Should the gameObject be disabled after enter occurs once?")]
-        public bool SingleUse=true; //Dedicated variable instead of a part of EnterEvents to ensure safe order of operations
+        public enum DisableConditions
+        {
+            None,
+            Enter,
+            Exit
+        }
+
+
+        public DisableConditions DisableCondition; //Dedicated variable instead of a part of EnterEvents to ensure safe order of operations
+        public UnityEvent EnterEvents;
+        public UnityEvent ExitEvents;
 
         public void Enter()
         {
-            Debug.Log("Enter");
-            if (EnterEvents!= null)
+            if (EnterEvents != null)
             {
                 EnterEvents.Invoke();
             }
-            gameObject.SetActive(!SingleUse);
+            else
+            {
+                Debug.Log("Enter");
+            }
+            gameObject.SetActive(DisableCondition!=DisableConditions.Enter);
+        }
+
+        public void Exit()
+        {
+            if (ExitEvents != null)
+            {
+                ExitEvents.Invoke();
+            }
+            else
+            {
+                Debug.Log("Exit");
+            }
+            gameObject.SetActive(DisableCondition != DisableConditions.Exit);
         }
 
         //Necessary for checkbox to show on component

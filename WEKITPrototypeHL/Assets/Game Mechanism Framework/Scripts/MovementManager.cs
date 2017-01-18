@@ -23,19 +23,19 @@ namespace GameMechanism
                 MaxDistance);
             if (Hit)
             {
-                HandleTargets();
+                EnterTargets();
             }
             else
             {
                 if (_lastHit != null)
                 {
-                    //Possible Exit Event here
+                    ExitTargets();
                     _lastHit = null;
                 }
             }
         }
 
-        void HandleTargets()
+        void EnterTargets()
         {
             GameObject go = HitInfo.collider.gameObject;
             if (go != _lastHit)
@@ -46,6 +46,15 @@ namespace GameMechanism
                 {
                     target.Enter();
                 }
+            }
+        }
+
+        void ExitTargets()
+        {
+            Interactable_Gaze target = _lastHit.GetComponent<Interactable_Gaze>();
+            if (target != null)
+            {
+                target.Exit();
             }
         }
     }
