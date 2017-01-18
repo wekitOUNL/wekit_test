@@ -9,8 +9,12 @@ namespace GameMechanism
     public class SpatialUnderstandingSpawner : Singleton<SpatialUnderstandingSpawner>
     {
         public GameObject Prefab;
+        public SpawnInformation SpawnInformation;
+        public SpawnInformation.PlacementTypes PlacementType;
+        [Tooltip("Half dimensions of the object to be spawned")]
+        public Vector3 HalfDims;
 
-        //Currently the rules, constraints and definitions have to be set inside the script; at a later point, an editor script may be created so you can set them in the inspector
+
         public List<SpatialUnderstandingDllObjectPlacement.ObjectPlacementRule> Rules;
         public List<SpatialUnderstandingDllObjectPlacement.ObjectPlacementConstraint> Constraints;
         public SpatialUnderstandingDllObjectPlacement.ObjectPlacementDefinition Definition;
@@ -35,19 +39,20 @@ namespace GameMechanism
             //Sollte nicht gemacht werden, bevor Scan fertig ist.
             if (_init)
             {
+                SpawnInformation.PlacementQuery query = SpawnInformation.QueryByPlacementType(PlacementType, HalfDims);
                 //Mit Definition nicht so sicher (Online-Beispiel ist falsch bzw. nicht komplett)
                 if (SpatialUnderstandingDllObjectPlacement.Solver_PlaceObject(Prefab.name,
-                        _understandingDll.PinObject(Definition),
+                        _understandingDll.PinObject(query.PlacementDefinition),
                         Rules.Count,
-                        _understandingDll.PinObject(Rules.ToArray()),
+                        _understandingDll.PinObject(query.PlacementRules.ToArray()),
                         Constraints.Count,
-                        _understandingDll.PinObject(Constraints.ToArray()),
+                        _understandingDll.PinObject(query.PlacementConstraints.ToArray()),
                         _understandingDll.GetStaticObjectPlacementResultPtr()) > 0)
                 {
                     SpatialUnderstandingDllObjectPlacement.ObjectPlacementResult placementResult =
                         _understandingDll.GetStaticObjectPlacementResult();
                     Quaternion rot = Quaternion.LookRotation(placementResult.Forward, Vector3.up);
-                    GameObject newGameObject = Instantiate(Prefab, placementResult.Position, rot);
+                    //GameObject newGameObject = Instantiate(Prefab, placementResult.Position, rot);
                 }
             }
             else
