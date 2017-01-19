@@ -33,6 +33,7 @@ namespace GameMechanism
             //Sollte nicht gemacht werden, bevor Scan fertig ist.
             if (_init)
             {
+                Debug.Log("Spawning object");
                 StartCoroutine(ObjectPlacement());
             }
             else
@@ -56,7 +57,11 @@ namespace GameMechanism
                 SpatialUnderstandingDllObjectPlacement.ObjectPlacementResult placementResult =
                     _understandingDll.GetStaticObjectPlacementResult();
                 Quaternion rot = Quaternion.LookRotation(placementResult.Forward, Vector3.up);
-                //GameObject newGameObject = Instantiate(Prefab, placementResult.Position, rot);
+                Instantiate(Prefab, placementResult.Position, rot);
+            }
+            else
+            {
+                Debug.Log("Couldn't spawn object");
             }
             yield return null;
         }
