@@ -332,6 +332,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a099260d66ffc874688436b30351cc27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useDefaultColor: 1
+  DefaultColor: {r: 1, g: 1, b: 1, a: 1}
+  FocusColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  FocusSizeFactor: 1.2
 --- !u!102 &779304735
 TextMesh:
   serializedVersion: 3
@@ -517,6 +521,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02abf7162cfd5fe428c10a03b04d1c7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useDefaultColor: 0
+  DefaultColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  FocusColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  FocusSizeFactor: 1.2
 --- !u!114 &807020716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -689,6 +697,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 953d0a8291ca40b4e9ce4ed1862e1234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useDefaultColor: 1
+  DefaultColor: {r: 1, g: 1, b: 1, a: 1}
+  FocusColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  FocusSizeFactor: 1.2
 --- !u!114 &986752480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1171,6 +1183,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40c634a5a120b1742b5dbac135dd8760, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useDefaultColor: 0
+  DefaultColor: {r: 0, g: 0, b: 0, a: 0}
+  FocusColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  FocusSizeFactor: 1.2
   StreamType: 1
   InputGain: 1
   KeepAllData: 0
