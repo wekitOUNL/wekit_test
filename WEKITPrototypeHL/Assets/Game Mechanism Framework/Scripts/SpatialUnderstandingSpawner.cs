@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using HoloToolkit.Unity;
 
@@ -13,10 +12,6 @@ namespace GameMechanism
         public SpawnInformation.PlacementTypes PlacementType;
         [Tooltip("Half dimensions of the object to be spawned")] public Vector3 HalfDims;
 
-
-        public List<SpatialUnderstandingDllObjectPlacement.ObjectPlacementRule> Rules;
-        public List<SpatialUnderstandingDllObjectPlacement.ObjectPlacementConstraint> Constraints;
-        public SpatialUnderstandingDllObjectPlacement.ObjectPlacementDefinition Definition;
         private bool _init;
         private SpatialUnderstandingDll _understandingDll;
 
@@ -48,9 +43,9 @@ namespace GameMechanism
             //Mit Definition nicht so sicher (Online-Beispiel ist falsch bzw. nicht komplett)
             if (SpatialUnderstandingDllObjectPlacement.Solver_PlaceObject(Prefab.name,
                     _understandingDll.PinObject(query.PlacementDefinition),
-                    Rules.Count,
+                    query.PlacementRules!=null?query.PlacementRules.Count:0,
                     _understandingDll.PinObject(query.PlacementRules.ToArray()),
-                    Constraints.Count,
+                    query.PlacementConstraints != null ? query.PlacementConstraints.Count : 0,
                     _understandingDll.PinObject(query.PlacementConstraints.ToArray()),
                     _understandingDll.GetStaticObjectPlacementResultPtr()) > 0)
             {
