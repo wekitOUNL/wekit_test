@@ -17,25 +17,30 @@ public enum CloudProvider
 
 public class CapturePhoto : MonoBehaviour {
     PhotoCapture photoCaptureObject = null;
+    Resolution cameraResolution;
 
     public CloudProvider m_cloudProvider;
     public string m_apiKey;
-    public float m_pictureInterval;
-    public LayerMask m_raycastLayer;
-    public GameObject m_annotationParent;
-    public GameObject m_annotationTemplate;
+    //public float m_pictureInterval;
+    //public LayerMask m_raycastLayer;
+    //public GameObject m_annotationParent;
+    //public GameObject m_annotationTemplate;
 
-    Resolution cameraResolution;
-
+    /// <summary>
+    /// Entry Method for the class
+    /// </summary>
     void Capture()
     {
         PhotoCapture.CreateAsync(true, OnPhotoCaptureCreated);
     }
 
+    /// <summary>
+    /// Creates a instance of locatable camera to open photo stream
+    /// </summary>
+    /// <param name="captureObject"></param>
     void OnPhotoCaptureCreated(PhotoCapture captureObject)
     {
         photoCaptureObject = captureObject;
-
         cameraResolution = PhotoCapture.SupportedResolutions.OrderByDescending((res) => res.width * res.height).First();
 
         CameraParameters c = new CameraParameters();
@@ -43,43 +48,35 @@ public class CapturePhoto : MonoBehaviour {
         c.cameraResolutionWidth = cameraResolution.width;
         c.cameraResolutionHeight = cameraResolution.height;
         c.pixelFormat = CapturePixelFormat.BGRA32;
-
         captureObject.StartPhotoModeAsync(c, OnPhotoModeStarted);
-
-        Debug.Log("end of onPhotoCaptureCreated");
-    }
-
-    void OnStoppedPhotoMode(PhotoCapture.PhotoCaptureResult result)
-    {
-        photoCaptureObject.Dispose();
-        photoCaptureObject = null;
+        
     }
 
     //Take a photo and save it to texture
     private void OnPhotoModeStarted(PhotoCapture.PhotoCaptureResult result)
     {
+        Debug.Log("entered On Photo mode started");
         if (result.success)
         {
+            Debug.Log("OnPhotoModeStarted = "+result.success);
             photoCaptureObject.TakePhotoAsync(OnCapturedPhotoToMemory);
-           /* photoCaptureObject.TakePhotoAsync(delegate (PhotoCapture.PhotoCaptureResult result1, PhotoCaptureFrame photoCaptureFrame)
-            {
-                List<byte> buffer = new List<byte>();
-                Matrix4x4 cameraToWorldMatrix;
+            //photoCaptureObject.TakePhotoAsync(delegate (PhotoCapture.PhotoCaptureResult result1, PhotoCaptureFrame photoCaptureFrame)
+            // {
+            //     List<byte> buffer = new List<byte>();
+            //     Matrix4x4 cameraToWorldMatrix;
 
-                photoCaptureFrame.CopyRawImageDataIntoBuffer(buffer);
+            //     photoCaptureFrame.CopyRawImageDataIntoBuffer(buffer);
 
-                //Check if we can receive the position where the photo was taken
-                if (!photoCaptureFrame.TryGetCameraToWorldMatrix(out cameraToWorldMatrix))
-                {
-                    return;
-                }
+            //     //Check if we can receive the position where the photo was taken
+            //     if (!photoCaptureFrame.TryGetCameraToWorldMatrix(out cameraToWorldMatrix))
+            //     {
+            //         return;
+            //     }
 
-                //Start a coroutine to handle the server request
-                StartCoroutine(UploadAndHandlePhoto(buffer.ToArray(), cameraToWorldMatrix));
+            //     //Start a coroutine to handle the server request
+            //     StartCoroutine(UploadAndHandlePhoto(buffer.ToArray(), cameraToWorldMatrix));
 
-            });*/
-            photoCaptureObject.StopPhotoModeAsync(OnStoppedPhotoMode);
-
+            // });
         }
         else
         {
@@ -91,68 +88,72 @@ public class CapturePhoto : MonoBehaviour {
     {
         if (result.success)
         {
-            List<byte> buffer;
-            Debug.Log("a");
+            Debug.Log("OnCapturedPhotoToMemory = "+ result.success);
+            List <byte> buffer = new List<byte>();
             // Create our Texture2D for use and set the correct resolution
             Resolution cameraResolution = PhotoCapture.SupportedResolutions.OrderByDescending((res) => res.width/8 * res.height/8).First();
-            Debug.Log("b");
             Texture2D targetTexture = new Texture2D(cameraResolution.width, cameraResolution.height);
-            Debug.Log("c");
-            buffer = new List<Byte>(targetTexture.GetRawTextureData());
-            Debug.Log("d");
-            photoCaptureFrame.CopyRawImageDataIntoBuffer(buffer);
-            Debug.Log("e");
             // Copy the raw image data into our target texture
             photoCaptureFrame.UploadImageDataToTexture(targetTexture);
-            // Do as we wish with the texture such as apply it to a material, etc.
-            Debug.Log("f");
+            Renderer renderer = GameObject.FindGameObjectWithTag("DisplayCube").GetComponent<Renderer>();
+            renderer.material.mainTexture = targetTexture;
+            Debug.Log("Photo Uploaded to Texture");
 
             Matrix4x4 cameraToWorldMatrix;
 
             photoCaptureFrame.CopyRawImageDataIntoBuffer(buffer);
-            Debug.Log("copied");
+            Debug.Log("Raw Image copied into buffer");
             //Check if we can receive the position where the photo was taken
             if (!photoCaptureFrame.TryGetCameraToWorldMatrix(out cameraToWorldMatrix))
             {
                 return;
             }
             Debug.Log("past if");
+
             //Start a coroutine to handle the server request
             StartCoroutine(UploadAndHandlePhoto(buffer.ToArray(), cameraToWorldMatrix));
 
             Debug.Log("Photo saved to texture");
+            
         }
         // Clean up
-        /*photoCaptureObject.StopPhotoModeAsync(OnStoppedPhotoMode);*/
-    }
-    /*
-    private void OnPhotoModeStarted(PhotoCapture.PhotoCaptureResult result)
-    {
-        if (result.success)
-        {
-            string filename = string.Format(@"CapturedImage{0}_n.jpg", Time.time);
-            string filePath = System.IO.Path.Combine(Application.persistentDataPath, filename);
-
-            photoCaptureObject.TakePhotoAsync(filePath, PhotoCaptureFileOutputFormat.JPG, OnCapturedPhotoToDisk);
-        }
-        else
-        {
-            Debug.LogError("Unable to start photo mode!");
-        }
+        photoCaptureObject.StopPhotoModeAsync(OnStoppedPhotoMode);
     }
 
-    void OnCapturedPhotoToDisk(PhotoCapture.PhotoCaptureResult result)
+    void OnStoppedPhotoMode(PhotoCapture.PhotoCaptureResult result)
     {
-        if (result.success)
-        {
-            Debug.Log("Saved Photo to disk!");
-            photoCaptureObject.StopPhotoModeAsync(OnStoppedPhotoMode);
-        }
-        else
-        {
-            Debug.Log("Failed to save Photo to disk");
-        }
-    }*/
+        photoCaptureObject.Dispose();
+        photoCaptureObject = null;
+    }
+
+    
+    //private void OnPhotoModeStarted(PhotoCapture.PhotoCaptureResult result)
+    //{
+    //    if (result.success)
+    //    {
+    //        string filename = string.Format(@"CapturedImage{0}_n.jpg", Time.time);
+    //        string filePath = System.IO.Path.Combine(Application.persistentDataPath, filename);
+
+    //        photoCaptureObject.TakePhotoAsync(filePath, PhotoCaptureFileOutputFormat.JPG, OnCapturedPhotoToDisk);
+    //    }
+    //    else
+    //    {
+    //        Debug.LogError("Unable to start photo mode!");
+    //    }
+    //}
+
+    //void OnCapturedPhotoToDisk(PhotoCapture.PhotoCaptureResult result)
+    //{
+    //    if (result.success)
+    //    {
+    //        Debug.Log("Saved Photo to disk!");
+    //        photoCaptureObject.StopPhotoModeAsync(OnStoppedPhotoMode);
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("Failed to save Photo to disk");
+    //    }
+    //}
 
     /// <summary>
     /// Start the upload and pass the response to the handling function
@@ -216,6 +217,7 @@ public class CapturePhoto : MonoBehaviour {
             //multipartFormSections.Add(new MultipartFormFileSection("img", photo, "test.jpg", "image/jpeg"));
             //byte[] boundary = UnityWebRequest.GenerateBoundary();
             //UploadHandler upload = new UploadHandlerRaw(UnityWebRequest.SerializeFormSections(multipartFormSections, boundary));
+            /*string url = "https://api.projectoxford.ai/vision/v1.0/analyze?visualFeatures=Faces";*/
             //string url = "https://api.projectoxford.ai/vision/v1.0/analyze?visualFeatures=Faces";
             //UnityWebRequest www = new UnityWebRequest(url, "POST", download, upload);
             //www.SetRequestHeader("Content-Type", "multipart/form-data; boundary=" + Encoding.UTF8.GetString(boundary));

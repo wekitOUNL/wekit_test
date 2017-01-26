@@ -21,7 +21,12 @@ public class SpeechManager : MonoBehaviour
            cameraObject.GetComponent<CapturePhoto>().SendMessage("Capture");
 
         });
+        keywords.Add("WEKIT", () =>
+        {
+            Debug.Log("keyword added");
+            cameraObject.GetComponent<CapturePhoto>().SendMessage("Capture");
 
+        });
         // Tell the KeywordRecognizer about our keywords.
         keywordRecognizer = new KeywordRecognizer(keywords.Keys.ToArray());
 
