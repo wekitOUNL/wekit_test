@@ -7,97 +7,17 @@ using System.Xml.Serialization;
 using System.IO;
 using UnityEngine;
 
-public class WEKITSensorAnnoationEditor : WEKITAnnotationBaseEditor
+public class WEKITSensorAnnotationEditor : WEKITAnnotationBaseEditor
 {
-    //Reference to the text that shall display the realtime data.
-    public Text UIText;
-
     //Reference to the DataPlayer that handles the recordings.
     public DataPlayer MyPlayer;
 
-    public Vector3[] HandPositions = new Vector3[] { Vector3.zero, Vector3.zero };
+    //Reference to the DataManager that handles the data.
+    public UIDisplayAPI DM;
 
     //Private variables.
     List<SaveData> recordList = new List<SaveData>();
-    Vector3 headPosition;
-    Vector3 gazeDirection;
-    RaycastHit hitInfo;
-    bool castHit;
-    string output;
-    string status;
     bool isRecording = false;
-
-
-    void Awake()
-    {
-        status = "pending";
-    }
-
-    void Update()
-    {
-        Debug.Log(isRecording);
-
-        //Check if the raycast from the user's head in the direction of his gaze hit an object.
-        if (Physics.Raycast(headPosition, gazeDirection, out hitInfo))
-        {
-            castHit = true;
-        }
-        else
-        {
-            castHit = false;
-        }
-
-        //Get the position of the user's head and the direction of the gaze.
-        headPosition = Camera.main.transform.position;
-        gazeDirection = Camera.main.transform.forward;
-
-
-
-
-        //Display the collected information in the UI.
-        output = castHit.ToString() +
-                    Environment.NewLine + "pos:" + headPosition.ToString() +
-                    Environment.NewLine + "dir:" + gazeDirection.ToString() +
-                    Environment.NewLine + "h1:" + HandPositions[0].x + "," + HandPositions[0].y + "," + HandPositions[0].z +
-                    Environment.NewLine + "h2:" + HandPositions[1].x + "," + HandPositions[1].y + "," + HandPositions[1].z +
-                    Environment.NewLine + status +
-                    Environment.NewLine + Time.time +
-                    Environment.NewLine + MyPlayer.currentFrame.ToString() + ", " + MyPlayer.isPlaying.ToString();
-
-
-        UIText.GetComponent<Text>().text = output;
-
-        //Start recording the data with a keybinding.
-        if (Input.GetKeyDown("r"))
-        {
-            StartRecording();
-        }
-
-        //Stop recording the data with a keybinding.
-        if (Input.GetKeyDown("t"))
-        {
-            StopRecording();
-        }
-
-        //Delete the recorded or temporarily stored data (no influence on opened file).
-        if (Input.GetKeyDown("w"))
-        {
-            WipeRecord();
-        }
-
-        //Load the data from the file "test0" and fill its content in the recordList.
-        if (Input.GetKeyDown("l"))
-        {
-            Load();
-        }
-
-        //Play the ghost of the recorded data.
-        if (Input.GetKeyDown("p"))
-        {
-            PlayRecord();
-        }
-    }
-
 
 
     public void StartRecording()
@@ -109,14 +29,13 @@ public class WEKITSensorAnnoationEditor : WEKITAnnotationBaseEditor
             isRecording = true;
             InvokeRepeating("Record", 0f, 0.04f);
         }
-        status = "recording";
         Debug.Log("Recording");
     }
 
     public void Record()
     {
         //Add the data in our current frame to the list of recorded data.
-        SaveData sd = new SaveData(headPosition, gazeDirection, castHit, recordList.Count, HandPositions);
+        SaveData sd = new SaveData(DM.headPosition, DM.gazeDirection, DM.castHit, recordList.Count, DM.HandPositions);
         recordList.Add(sd);
         //Debug.Log("Record: " + recordList.Count + ", " + sd.ToString());
     }
@@ -126,7 +45,6 @@ public class WEKITSensorAnnoationEditor : WEKITAnnotationBaseEditor
         //Stop the Record function.
         isRecording = false;
         CancelInvoke("Record");
-        status = "stopped";
         Debug.Log("Stopped");
     }
 
@@ -135,7 +53,6 @@ public class WEKITSensorAnnoationEditor : WEKITAnnotationBaseEditor
         //Wipe the temporarily stored data.
         StopRecording();
         recordList.Clear();
-        status = "wiped";
         Debug.Log("Wiped");
     }
 
@@ -143,7 +60,6 @@ public class WEKITSensorAnnoationEditor : WEKITAnnotationBaseEditor
     {
         //Calls the DataPlayer to replay the temporarily stored Data.
         MyPlayer.Activate(recordList);
-        status = "playing";
         Debug.Log("Playing");
     }
 
@@ -151,7 +67,6 @@ public class WEKITSensorAnnoationEditor : WEKITAnnotationBaseEditor
     {
         //Calls the DataPlayer to stop the current playback.
         MyPlayer.Stop();
-        status = "play/pause";
     }
 
     public void Save()
@@ -185,7 +100,6 @@ public class WEKITSensorAnnoationEditor : WEKITAnnotationBaseEditor
             XmlSerializer xS = new XmlSerializer(typeof(List<SaveData>));
             TextWriter tW = new StreamWriter(file);
             xS.Serialize(tW, currentRecording);
-            status = "saved";
             Debug.Log("Saved");
         }
     }
@@ -215,16 +129,44 @@ public class WEKITSensorAnnoationEditor : WEKITAnnotationBaseEditor
             TextReader tR = new StreamReader(file);
             List<SaveData> tempList = (List<SaveData>)xS.Deserialize(tR);
 
-            status = "loaded";
             Debug.Log("loaded");
             return tempList;
         }
         else
         {
-            status = "failed";
             Debug.Log("failed");
             return null;
         }
     }
+}
 
+
+
+//The serializable custom class in which the gathered data will be stored, one instance for each step.
+[Serializable]
+public class SaveData
+{
+    public float TimeStamp;
+
+    public Vector3 HandPosition1;
+    public Vector3 HandPosition2;
+    public Vector3 HeadPosition;
+    public Vector3 GazeDirection;
+    public bool CastHit;
+
+    public SaveData()
+    {
+
+    }
+
+    public SaveData(Vector3 hP, Vector3 gD, bool cH, int tS, Vector3[] haP)
+    {
+        HeadPosition = hP;
+        GazeDirection = gD;
+        CastHit = cH;
+        HandPosition1 = haP[0];
+        HandPosition2 = haP[1];
+
+        TimeStamp = tS * 0.04f;
+    }
 }

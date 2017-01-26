@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311938, g: 0.38074005, b: 0.35872707, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311947, g: 0.38074005, b: 0.35872722, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -179,7 +179,6 @@ GameObject:
   - component: {fileID: 162679933}
   - component: {fileID: 162679932}
   - component: {fileID: 162679931}
-  - component: {fileID: 162679938}
   m_Layer: 0
   m_Name: AnnotationSensor
   m_TagString: Untagged
@@ -202,11 +201,8 @@ MonoBehaviour:
   DefaultColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   FocusColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   FocusSizeFactor: 1.2
-  UIText: {fileID: 90623195}
   MyPlayer: {fileID: 1290141347}
-  HandPositions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
+  DM: {fileID: 1100853134}
 --- !u!114 &162679932
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -314,20 +310,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &162679938
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 162679930}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 176eefd5419f2764d8e1b6358bfaac55, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MyDataManager: {fileID: 162679931}
-  TrackingObject: {fileID: 1478067127621650, guid: ab0dfa2874c4890419bcd0c72b00ec5b,
-    type: 2}
 --- !u!1001 &183911709
 Prefab:
   m_ObjectHideFlags: 0
@@ -1181,6 +1163,8 @@ GameObject:
   - component: {fileID: 1100853130}
   - component: {fileID: 1100853131}
   - component: {fileID: 1100853132}
+  - component: {fileID: 1100853133}
+  - component: {fileID: 1100853134}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -1259,6 +1243,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameObjectPrefab: {fileID: 807020709}
+--- !u!114 &1100853133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1100853127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 176eefd5419f2764d8e1b6358bfaac55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MyDataManager: {fileID: 1100853134}
+  TrackingObject: {fileID: 1478067127621650, guid: ab0dfa2874c4890419bcd0c72b00ec5b,
+    type: 2}
+--- !u!114 &1100853134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1100853127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d736182c2eae91e41b84c7af0bf56203, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UIText: {fileID: 90623195}
+  HandPositions:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  headPosition: {x: 0, y: 0, z: 0}
+  gazeDirection: {x: 0, y: 0, z: 0}
+  castHit: 0
+  output: 
 --- !u!1 &1200212331
 GameObject:
   m_ObjectHideFlags: 0
@@ -1623,6 +1640,11 @@ Prefab:
     - target: {fileID: 4000010560871102, guid: d379ed0a5618c9f479f58bd83a2d0ad3, type: 2}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 20000013304850028, guid: d379ed0a5618c9f479f58bd83a2d0ad3,
+        type: 2}
+      propertyPath: near clip plane
+      value: 0.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d379ed0a5618c9f479f58bd83a2d0ad3, type: 2}
