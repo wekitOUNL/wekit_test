@@ -7,9 +7,10 @@ public class DataPlayer : MonoBehaviour
     public GameObject Hand1;
     public GameObject Hand2;
 
+    [HideInInspector]
     public bool isPlaying = false;
+    [HideInInspector]
     public int currentFrame = 0;
-
 
     float startTime = 0;
     List<SaveData> myRecording;

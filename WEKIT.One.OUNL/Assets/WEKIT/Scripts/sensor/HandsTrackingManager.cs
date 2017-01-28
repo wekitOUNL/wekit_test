@@ -22,7 +22,7 @@ namespace HoloToolkit.Unity
         }
 
 
-        public WEKITSensorAnnoationEditor MyDataManager;
+        public UIDisplayAPI MyDataManager;
         public GameObject TrackingObject;
 
         Vector3[] handPos = new Vector3[2];
