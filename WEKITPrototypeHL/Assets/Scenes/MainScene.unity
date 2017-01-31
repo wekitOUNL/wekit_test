@@ -866,6 +866,7 @@ MonoBehaviour:
   UIText: {fileID: 623032025}
   MyPlayer: {fileID: 2029689670}
   HandPositions: []
+  WorldAnchorCoords: {x: 0, y: 0, z: 0}
 --- !u!4 &927055208
 Transform:
   m_ObjectHideFlags: 0
@@ -1680,6 +1681,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myWAM: {fileID: 927055211}
+  myData: {fileID: 927055207}
 --- !u!1 &2124907208
 GameObject:
   m_ObjectHideFlags: 0
