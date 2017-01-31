@@ -8,9 +8,12 @@ public class WorldAnchorSetter : MonoBehaviour
 {
     public WorldAnchorManager myWAM;
 
+    public UIDisplayAPI myData;
+
 	void Awake ()
 	{
         myWAM.AttachAnchor(this.gameObject, "me");
+        myData.WorldAnchorCoords = transform.position;
     }
 	
 	void Update ()

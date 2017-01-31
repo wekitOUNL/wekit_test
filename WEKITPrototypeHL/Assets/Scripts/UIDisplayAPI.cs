@@ -19,6 +19,8 @@ public class UIDisplayAPI : MonoBehaviour
 
     public Vector3 [] HandPositions = new Vector3[] {Vector3.zero, Vector3.zero};
 
+    public Vector3 WorldAnchorCoords;
+
     //Private variables.
     List<SaveData> recordList = new List<SaveData>();
     Vector3 headPosition;
@@ -117,7 +119,7 @@ public class UIDisplayAPI : MonoBehaviour
     public void Record()
     {
         //Add the data in our current frame to the list of recorded data.
-        recordList.Add(new SaveData(headPosition, gazeDirection, castHit, recordList.Count, HandPositions));
+        recordList.Add(new SaveData(headPosition, gazeDirection, castHit, recordList.Count, HandPositions, WorldAnchorCoords));
     }
 
     public void StopRecording()
@@ -141,7 +143,7 @@ public class UIDisplayAPI : MonoBehaviour
     public void PlayRecord()
     {
         //Calls the DataPlayer to replay the temporarily stored Data.
-        MyPlayer.Activate(recordList);
+        MyPlayer.Activate(recordList, WorldAnchorCoords);
         status = "playing";
     }
 
@@ -244,13 +246,13 @@ public class SaveData
 
     }
 
-    public SaveData(Vector3 hP, Vector3 gD, bool cH, int tS, Vector3[] haP)
+    public SaveData(Vector3 hP, Vector3 gD, bool cH, int tS, Vector3[] haP, Vector3 WAC)
     {
-        HeadPosition = hP;
-        GazeDirection = gD;
+        HeadPosition = hP - WAC;
+        GazeDirection = gD - WAC;
         CastHit = cH;
-        HandPosition1 = haP[0];
-        HandPosition2 = haP[1];
+        HandPosition1 = haP[0] - WAC;
+        HandPosition2 = haP[1] - WAC;
 
         TimeStamp = tS * 0.04f;
     }
