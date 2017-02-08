@@ -27,6 +27,35 @@ public class SpeechManager : MonoBehaviour
             cameraObject.GetComponent<CapturePhoto>().SendMessage("Capture");
 
         });
+
+        keywords.Add("Next", () =>
+        {
+            Debug.Log("keyword added");
+            GameObject.FindGameObjectWithTag("DisplayManual").SendMessage("AssignNext");
+
+        });
+
+        keywords.Add("Previous", () =>
+        {
+            Debug.Log("keyword added");
+            GameObject.FindGameObjectWithTag("DisplayManual").SendMessage("AssignPrevious");
+
+        });
+
+        keywords.Add("now", () =>
+        {
+            Debug.Log("keyword added");
+            GameObject.FindGameObjectWithTag("LegoModel").SendMessage("ExpandModel");
+
+        });
+
+        keywords.Add("go", () =>
+        {
+            Debug.Log("keyword added");
+            GameObject.FindGameObjectWithTag("LegoModel").SendMessage("ExpandModel");
+
+        });
+
         // Tell the KeywordRecognizer about our keywords.
         keywordRecognizer = new KeywordRecognizer(keywords.Keys.ToArray());
 
