@@ -844,6 +844,7 @@ GameObject:
   - component: {fileID: 927055209}
   - component: {fileID: 927055207}
   - component: {fileID: 927055210}
+  - component: {fileID: 927055211}
   m_Layer: 0
   m_Name: DataManager
   m_TagString: Untagged
@@ -865,6 +866,7 @@ MonoBehaviour:
   UIText: {fileID: 623032025}
   MyPlayer: {fileID: 2029689670}
   HandPositions: []
+  WorldAnchorCoords: {x: 0, y: 0, z: 0}
 --- !u!4 &927055208
 Transform:
   m_ObjectHideFlags: 0
@@ -903,6 +905,17 @@ MonoBehaviour:
   MyDataManager: {fileID: 927055207}
   TrackingObject: {fileID: 1478067127621650, guid: d485347ef27dbc7479085f806e5463a0,
     type: 2}
+--- !u!114 &927055211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 927055206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f122ca4ae6b527e4798205becf9a0550, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &983645146
 GameObject:
   m_ObjectHideFlags: 0
@@ -1628,6 +1641,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 2072423898}
+  - component: {fileID: 2072423899}
   m_Layer: 0
   m_Name: ObjectCollection
   m_TagString: Untagged
@@ -1655,6 +1669,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2072423899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2072423897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33c3f9078697b264f8f09e4e25b1b55e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myWAM: {fileID: 927055211}
+  myData: {fileID: 927055207}
 --- !u!1 &2124907208
 GameObject:
   m_ObjectHideFlags: 0

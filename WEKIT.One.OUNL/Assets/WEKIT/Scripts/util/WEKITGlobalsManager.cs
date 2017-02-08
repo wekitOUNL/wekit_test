@@ -30,8 +30,14 @@ public class WEKITGlobalsManager : Singleton<WEKITGlobalsManager> {
     /// <summary>
     /// the prefab to be used for sensor annotations.
     /// </summary>
-    [Tooltip("Drag the Audio Annotation prefab asset you want to display.")]
+    [Tooltip("Drag the Sensor Annotation prefab asset you want to display.")]
     public GameObject sensorAnnotationObject;
+
+    /// <summary>
+    /// the prefab to be used for photo annotations.
+    /// </summary>
+    [Tooltip("Drag the Photo Annotation prefab asset you want to display.")]
+    public GameObject photoAnnotationObject;
 
     /// <summary>
     /// the prefab to be used as cursor.

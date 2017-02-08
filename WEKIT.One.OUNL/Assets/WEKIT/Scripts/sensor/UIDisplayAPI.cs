@@ -50,7 +50,8 @@ public class UIDisplayAPI : MonoBehaviour
         gazeDirection = Camera.main.transform.forward;
 
         //Display the collected information in the UI.
-        output = castHit.ToString() +
+        output = "Build 2017-02-21-00:43" +
+                    Environment.NewLine + castHit.ToString() +
                     Environment.NewLine + "pos:" + headPosition.ToString() +
                     Environment.NewLine + "dir:" + gazeDirection.ToString() +
                     Environment.NewLine + "h1:" + HandPositions[0].x + "," + HandPositions[0].y + "," + HandPositions[0].z +

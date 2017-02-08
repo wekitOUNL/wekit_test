@@ -27,6 +27,9 @@ public class WEKITFocusableObject : MonoBehaviour, IFocusable
     [Range(0.8f, 2.0f)]
     public float FocusSizeFactor = 1.2f;
 
+    [Tooltip("Indicate if focus should also be highlighted in child components.")]
+    public bool includeChildComponents = true;
+
     protected Color currentColor;
 
 
@@ -42,9 +45,12 @@ public class WEKITFocusableObject : MonoBehaviour, IFocusable
         else
         {
             currentColor = this.gameObject.GetComponent<Renderer>().material.color;
-            foreach (Renderer rend in this.gameObject.GetComponentsInChildren<Renderer>())
+            if (includeChildComponents)
             {
-                currentColor = rend.material.color;
+                foreach (Renderer rend in this.gameObject.GetComponentsInChildren<Renderer>())
+                {
+                    currentColor = rend.material.color;
+                }
             }
         }
     }
@@ -76,9 +82,12 @@ public class WEKITFocusableObject : MonoBehaviour, IFocusable
     public void changeColor(Color color)
     {
         this.gameObject.GetComponent<Renderer>().material.color = color;
-        foreach (Renderer rend in this.gameObject.GetComponentsInChildren<Renderer>())
+        if (includeChildComponents)
         {
-            rend.material.color = color;
+            foreach (Renderer rend in this.gameObject.GetComponentsInChildren<Renderer>())
+            {
+                rend.material.color = color;
+            }
         }
     }
 

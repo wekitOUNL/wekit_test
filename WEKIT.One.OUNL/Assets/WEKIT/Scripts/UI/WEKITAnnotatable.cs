@@ -178,6 +178,17 @@ public class WEKITAnnotatable : WEKITFocusableObject {
 
 
     /// <summary>
+    /// adds a new photo annotation to this object. 
+    /// The annotation will be placed in the user's gaze direction in front of this object. 
+    /// </summary>
+    void AddPhotoAnnotation()
+    {
+        //Debug.Log("WEKITAnnotatable.AddAnnotation");
+        GameObject annotationObject = AddAnnotation(WEKITGlobalsManager.Instance.photoAnnotationObject);
+    }
+
+
+    /// <summary>
     /// removes the annotation from this object. 
     /// Should not be called directly, use WEKITAnnotationEditor.RemoveAnnotation instead.
     /// </summary>

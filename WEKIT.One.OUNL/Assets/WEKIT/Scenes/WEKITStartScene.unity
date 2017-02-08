@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311947, g: 0.38074005, b: 0.35872722, a: 1}
+  m_IndirectSpecularColor: {r: 0.3731194, g: 0.38074005, b: 0.3587271, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -91,6 +91,153 @@ NavMeshSettings:
     cellSize: 0.16666667
     accuratePlacement: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &45952317
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 45952325}
+  - component: {fileID: 45952324}
+  - component: {fileID: 45952323}
+  - component: {fileID: 45952322}
+  - component: {fileID: 45952320}
+  - component: {fileID: 45952319}
+  - component: {fileID: 45952318}
+  - component: {fileID: 45952321}
+  m_Layer: 0
+  m_Name: AnnotationPhotoCube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &45952318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 45952317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a35b76b3ea384349a36b4f6d8813b1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useDefaultColor: 0
+  DefaultColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  FocusColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  FocusSizeFactor: 1.2
+  includeChildComponents: 0
+--- !u!114 &45952319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 45952317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d5a0a60fbe897549ad0bfe2039f12b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HostTransform: {fileID: 0}
+  DistanceScale: 2
+  IsKeepUpright: 0
+  IsOrientTowardsUser: 0
+  IsDraggingEnabled: 1
+--- !u!114 &45952320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 45952317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df19db49aef0f6e498272f2f6c894a39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuItemTexts:
+  - Take Photo
+  - Remove Annotation
+  menuItemNames:
+  - StartPhotoCapture
+  - RemoveAnnotation
+--- !u!114 &45952321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 45952317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac8d5b128a1d8204fb76c86f47b75912, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PivotAxis: 0
+--- !u!23 &45952322
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 45952317}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 1
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!65 &45952323
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 45952317}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &45952324
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 45952317}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &45952325
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 45952317}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.04, y: 0.04, z: 0.04}
+  m_Children:
+  - {fileID: 379853801}
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &90623193
 GameObject:
   m_ObjectHideFlags: 0
@@ -201,6 +348,7 @@ MonoBehaviour:
   DefaultColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   FocusColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   FocusSizeFactor: 1.2
+  includeChildComponents: 1
   MyPlayer: {fileID: 1290141347}
   DM: {fileID: 1100853134}
 --- !u!114 &162679932
@@ -217,7 +365,7 @@ MonoBehaviour:
   HostTransform: {fileID: 0}
   DistanceScale: 2
   IsKeepUpright: 0
-  IsOrientTowardsUser: 1
+  IsOrientTowardsUser: 0
   IsDraggingEnabled: 1
 --- !u!114 &162679933
 MonoBehaviour:
@@ -238,6 +386,7 @@ MonoBehaviour:
   - Start Recording
   - Stop Recording
   - Wipe Recording
+  - Remove Annotation
   menuItemNames:
   - PlayRecord
   - PauseRecord
@@ -246,6 +395,7 @@ MonoBehaviour:
   - StartRecording
   - StopRecording
   - WipeRecord
+  - RemoveAnnotation
 --- !u!23 &162679934
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -308,7 +458,7 @@ Transform:
   m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &183911709
 Prefab:
@@ -461,6 +611,74 @@ Transform:
   m_Father: {fileID: 807020713}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &379853800
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 379853801}
+  - component: {fileID: 379853804}
+  - component: {fileID: 379853802}
+  m_Layer: 0
+  m_Name: PhotoDisplay
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &379853801
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 379853800}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.5, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 0.01}
+  m_Children: []
+  m_Father: {fileID: 45952325}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &379853802
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 379853800}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 1
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!33 &379853804
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 379853800}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &513317631
 GameObject:
   m_ObjectHideFlags: 0
@@ -718,6 +936,7 @@ MonoBehaviour:
   DefaultColor: {r: 1, g: 1, b: 1, a: 1}
   FocusColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   FocusSizeFactor: 1.2
+  includeChildComponents: 1
 --- !u!102 &779304735
 TextMesh:
   serializedVersion: 3
@@ -869,7 +1088,7 @@ Transform:
   m_Children:
   - {fileID: 223406713}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &807020714
 MonoBehaviour:
@@ -887,12 +1106,14 @@ MonoBehaviour:
   - Add Text Annotation
   - Add Audio Annotation
   - Add Sensor Annotation
+  - Add Photo Annotation
   - Delete Object
   menuItemNames:
   - SetActive
   - AddTextAnnotation
   - AddAudioAnnotation
   - AddSensorAnnotation
+  - AddPhotoAnnotation
   - DeleteObject
 --- !u!114 &807020715
 MonoBehaviour:
@@ -909,6 +1130,7 @@ MonoBehaviour:
   DefaultColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   FocusColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   FocusSizeFactor: 1.2
+  includeChildComponents: 1
 --- !u!114 &807020716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -923,7 +1145,7 @@ MonoBehaviour:
   HostTransform: {fileID: 0}
   DistanceScale: 2
   IsKeepUpright: 0
-  IsOrientTowardsUser: 1
+  IsOrientTowardsUser: 0
   IsDraggingEnabled: 1
 --- !u!1001 &892152711
 Prefab:
@@ -962,7 +1184,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9293fb83b86a83145b19a239a91b072c, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9293fb83b86a83145b19a239a91b072c, type: 3}
       propertyPath: m_LocalScale.x
@@ -1072,7 +1294,7 @@ Transform:
   m_LocalScale: {x: 0.005, y: 0.005, z: 0.005}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &986752479
 MonoBehaviour:
@@ -1089,6 +1311,7 @@ MonoBehaviour:
   DefaultColor: {r: 1, g: 1, b: 1, a: 1}
   FocusColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   FocusSizeFactor: 1.2
+  includeChildComponents: 1
 --- !u!114 &986752480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1213,6 +1436,7 @@ MonoBehaviour:
   annotationObject: {fileID: 986752475}
   audioAnnotationObject: {fileID: 1788368848}
   sensorAnnotationObject: {fileID: 162679930}
+  photoAnnotationObject: {fileID: 45952317}
   Cursor: {fileID: 996037451}
   DirectionIndicatorPrefab: {fileID: 1000013959014570, guid: 6145c0073e089ec44ade2d6ee028ae9b,
     type: 2}
@@ -1394,7 +1618,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 83718acd15ca4ce4b949b78852304794, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 83718acd15ca4ce4b949b78852304794, type: 3}
       propertyPath: m_LocalScale.x
@@ -1518,7 +1742,7 @@ Transform:
   - {fileID: 513317632}
   - {fileID: 1200212332}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1322804744
 GameObject:
@@ -1782,7 +2006,7 @@ RectTransform:
   m_Children:
   - {fileID: 90623194}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1982,6 +2206,7 @@ MonoBehaviour:
   DefaultColor: {r: 0, g: 0, b: 0, a: 0}
   FocusColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   FocusSizeFactor: 1.2
+  includeChildComponents: 1
   StreamType: 1
   InputGain: 1
   KeepAllData: 0
