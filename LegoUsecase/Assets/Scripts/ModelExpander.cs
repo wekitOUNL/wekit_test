@@ -3,9 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-
+/// <summary>
+/// class for expanding the 3d model based on the parent gameobject which holds all the subcomponenet 3d models
+/// The methods is called by the speech manager 
+/// </summary>
 public class ModelExpander : MonoBehaviour {
+    /// <summary>
+    /// array for holding all the 3d models
+    /// </summary>
     GameObject[] modelObject;
+    /// <summary>
+    /// the parent object that holds all the 3d model
+    /// </summary>
     GameObject parentObject;
     
 	// Use this for initialization
@@ -14,30 +23,21 @@ public class ModelExpander : MonoBehaviour {
         parentObject = GameObject.FindGameObjectWithTag("LegoModel");
         
 	}
-
+    /// <summary>
+    /// Method to expand the 3d model by racasting in the direction from the central point of the parent object in the direction of the child objects.
+    /// </summary>
     void ExpandModel()
     {
         Vector3 rayVector = parentObject.GetComponent<Transform>().position;
-       
+       // Raycast in all the direction to the central point of the child objects to infinity and get the position at the specified value back and set it as the new point
         foreach (GameObject g in modelObject)
         {
+            
             Vector3 tempVector = g.GetComponent<Transform>().localPosition;
             Ray rayToTest = new Ray(rayVector, tempVector);
-            g.transform.position = new Vector3(rayToTest.GetPoint(5.0f).x, rayToTest.GetPoint(5.0f).y, g.transform.position.z);
-
-
-
-            //Vector3 heading = parentVector - g.transform.position;
-            //float distance = heading.magnitude;
-            //Vector3 direction = heading / distance;
-
-            //g.transform.position = direction*distance;
+            //only assigned the x & y due to misbehaving of the z axis
+            g.transform.position = new Vector3(rayToTest.GetPoint(0.1f).x, rayToTest.GetPoint(0.1f).y, g.transform.position.z);
 
         }
     }
- 
-    // Update is called once per frame
-    void Update () {
-		
-	}
 }
