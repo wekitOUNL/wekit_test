@@ -25,7 +25,7 @@ public class DebugMessageHandler : MonoBehaviour {
     {
         if (textMesh)
         {
-            if (textMesh.text.Length > 10)
+            if (textMesh.text.Length > 20)
             {
                 textMesh.text = " "+ message + "\n";
             }
