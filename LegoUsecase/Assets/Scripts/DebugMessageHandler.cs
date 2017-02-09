@@ -23,13 +23,20 @@ public class DebugMessageHandler : MonoBehaviour {
 
     public void LogMessage(string message, string stackTrace, LogType type)
     {
-        if (textMesh.text.Length > 100)
+        if (textMesh)
         {
-            textMesh.text = message + " " + "\n";
+            if (textMesh.text.Length > 10)
+            {
+                textMesh.text = " "+ message + "\n";
+            }
+            else
+            {
+                textMesh.text += " "+ message + "\n";
+            }
         }
         else
         {
-            textMesh.text += message + " " + "\n";
+            Debug.Log("TextMesh not found");
         }
     }
 }

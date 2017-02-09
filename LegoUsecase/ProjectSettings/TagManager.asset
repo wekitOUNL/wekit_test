@@ -6,6 +6,16 @@ TagManager:
   tags:
   - Tip
   - DisplayCube
+  - DisplayManual
+  - Page 1
+  - Page 2
+  - Page 3
+  - Page 4
+  - Page 5
+  - Page 6
+  - displayManualHide
+  - lego
+  - LegoModel
   layers:
   - Default
   - TransparentFX
