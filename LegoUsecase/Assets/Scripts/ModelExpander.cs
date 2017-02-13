@@ -28,15 +28,15 @@ public class ModelExpander : MonoBehaviour {
     /// </summary>
     void ExpandModel()
     {
-        Vector3 rayVector = parentObject.GetComponent<Transform>().position;
+        
        // Raycast in all the direction to the central point of the child objects to infinity and get the position at the specified value back and set it as the new point
         foreach (GameObject g in modelObject)
         {
-           
+            Vector3 rayVector = parentObject.GetComponent<Transform>().position;
             Vector3 tempVector = g.GetComponent<Transform>().position;
             Ray rayToTest = new Ray( rayVector, tempVector);
             //only assigned the x & y due to misbehaving of the z axis
-            g.transform.position = new Vector3(rayToTest.GetPoint(1f).x, rayToTest.GetPoint(1f).y, g.GetComponent<Transform>().position.z);
+            g.transform.position = new Vector3(rayToTest.GetPoint(5f).x, rayToTest.GetPoint(5f).y, g.GetComponent<Transform>().position.z);
             Debug.Log(g.transform.position);
 
         }

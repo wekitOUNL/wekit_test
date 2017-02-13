@@ -100,7 +100,6 @@ GameObject:
   m_Component:
   - component: {fileID: 40990104}
   - component: {fileID: 40990107}
-  - component: {fileID: 40990106}
   - component: {fileID: 40990105}
   m_Layer: 0
   m_Name: Cube_3
@@ -153,18 +152,6 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!65 &40990106
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 40990103}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &40990107
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -244,6 +231,7 @@ GameObject:
   m_Component:
   - component: {fileID: 215164317}
   - component: {fileID: 215164318}
+  - component: {fileID: 215164319}
   m_Layer: 0
   m_Name: LegoModel
   m_TagString: LegoModel
@@ -278,6 +266,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 383bc7f986a3f2346ac25d4e3549103a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &215164319
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 215164316}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &244168370
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,7 +370,6 @@ GameObject:
   m_Component:
   - component: {fileID: 447100236}
   - component: {fileID: 447100239}
-  - component: {fileID: 447100238}
   - component: {fileID: 447100237}
   m_Layer: 0
   m_Name: Cube_2
@@ -423,18 +422,6 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!65 &447100238
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 447100235}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &447100239
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -813,7 +800,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1362756633}
   - component: {fileID: 1362756636}
-  - component: {fileID: 1362756635}
   - component: {fileID: 1362756634}
   m_Layer: 0
   m_Name: Cube_1
@@ -866,18 +852,6 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!65 &1362756635
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1362756632}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &1362756636
 MeshFilter:
   m_ObjectHideFlags: 0
