@@ -1,14 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DebugMessageHandler : MonoBehaviour {
-    TextMesh textMesh;
+   Text textMesh;
 
     // Use this for initialization
     void Start()
     {
-        textMesh = gameObject.GetComponentInChildren<TextMesh>();
+        textMesh = GetComponent<Text>();
+        
     }
 
     void OnEnable()
@@ -25,14 +27,8 @@ public class DebugMessageHandler : MonoBehaviour {
     {
         if (textMesh)
         {
-            if (textMesh.text.Length > 20)
-            {
-                textMesh.text = " "+ message + "\n";
-            }
-            else
-            {
-                textMesh.text += " "+ message + "\n";
-            }
+            textMesh.text =  message + System.Environment.NewLine;
+            
         }
         else
         {

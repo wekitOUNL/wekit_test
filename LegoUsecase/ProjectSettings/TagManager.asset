@@ -16,6 +16,7 @@ TagManager:
   - displayManualHide
   - lego
   - LegoModel
+  - TagAlong
   layers:
   - Default
   - TransparentFX
