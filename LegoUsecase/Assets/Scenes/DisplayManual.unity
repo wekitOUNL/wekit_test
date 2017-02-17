@@ -232,6 +232,8 @@ GameObject:
   - component: {fileID: 215164317}
   - component: {fileID: 215164318}
   - component: {fileID: 215164319}
+  - component: {fileID: 215164321}
+  - component: {fileID: 215164320}
   m_Layer: 0
   m_Name: LegoModel
   m_TagString: LegoModel
@@ -246,7 +248,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 215164316}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 2}
+  m_LocalPosition: {x: 0, y: 0.25, z: 2}
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_Children:
   - {fileID: 1362756633}
@@ -278,6 +280,34 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &215164320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 215164316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e37006d72f0cd14ca261f6f5b1a4253, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &215164321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 215164316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d1a2a33ffcac354298137001635a001, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxGazeCollisionDistance: 10
+  RaycastLayerMasks:
+  - serializedVersion: 2
+    m_Bits: 4294967291
+  Stabilizer: {fileID: 0}
+  GazeTransform: {fileID: 0}
 --- !u!1 &244168370
 GameObject:
   m_ObjectHideFlags: 0
@@ -394,7 +424,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 550, y: 225}
+  m_AnchoredPosition: {x: 500, y: 225}
   m_SizeDelta: {x: 103, y: 27}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &316314821
@@ -826,8 +856,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 972265669}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.25, y: 0, z: 1.5}
-  m_LocalScale: {x: 0.15, y: 0.15, z: 0.001}
+  m_LocalPosition: {x: -0.25, y: 0.25, z: 1.5}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.001}
   m_Children:
   - {fileID: 1488469595}
   - {fileID: 1957255271}
