@@ -4,21 +4,39 @@ using UnityEngine;
 
 public class GestureHandler : MonoBehaviour {
     private bool isActive;
+    
+    
 	// Use this for initialization
 	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
+            
+    }
+
+    /// <summary>
+    /// ONselect call is the call send by the gazegesturemanager on clicked event
+    /// </summary>
+    public void OnSelect()
+    {
+
+        gameObject.GetComponent<MeshRenderer>().material.shader = Shader.Find("Toon / Basic Outline");
+        isActive = true;
+        Debug.Log("ouch! clicked");
+    }
+
+    public void OnDeselect()
+    {
+        gameObject.GetComponent<MeshRenderer>().material.shader = Shader.Find("Diffuse");
+    }
+
+    // Update is called once per frame
+    void Update () {
+        //if isActive rotate the parent gameobject
         if (isActive)
         {
-            this.transform.Rotate(0, 1, 0);
+            //this.GetComponentInParent<Transform>().Rotate(0, 90, 0);
+            GameObject.FindGameObjectWithTag("LegoModel").transform.Rotate(0, 90, 0);
+            isActive = false;
         }
-	}
+        
 
-    void OnAirTapped()
-    {
-        isActive = !isActive;
     }
 }

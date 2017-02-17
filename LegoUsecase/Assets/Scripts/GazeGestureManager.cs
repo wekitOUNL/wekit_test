@@ -21,6 +21,7 @@ public class GazeGestureManager : MonoBehaviour {
         recognizer = new GestureRecognizer();
         recognizer.TappedEvent += (source, tapCount, ray) =>
         {
+            SendMessage("OnDeselect");
             // Send an OnSelect message to the focused object and its ancestors.
             if (FocusedObject != null)
             {

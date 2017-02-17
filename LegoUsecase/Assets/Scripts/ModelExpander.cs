@@ -11,34 +11,37 @@ public class ModelExpander : MonoBehaviour {
     /// <summary>
     /// array for holding all the 3d models
     /// </summary>
-    GameObject[] modelObject;
-    /// <summary>
-    /// the parent object that holds all the 3d model
-    /// </summary>
-    GameObject parentObject;
+    Transform[] modelObjectPos;
+    bool isExpanded=false;
     
 	// Use this for initialization
 	void Start () {
-        modelObject = GameObject.FindGameObjectsWithTag("lego");
-        parentObject = GameObject.FindGameObjectWithTag("LegoModel");
-        
+        modelObjectPos = gameObject.GetComponentsInChildren<Transform>();
 	}
     /// <summary>
     /// Method to expand the 3d model by racasting in the direction from the central point of the parent object in the direction of the child objects.
     /// </summary>
     void ExpandModel()
     {
-        
-       // Raycast in all the direction to the central point of the child objects to infinity and get the position at the specified value back and set it as the new point
-        foreach (GameObject g in modelObject)
+        if (isExpanded == false)
         {
-            Vector3 rayVector = parentObject.GetComponent<Transform>().position;
-            Vector3 tempVector = g.GetComponent<Transform>().position;
-            Ray rayToTest = new Ray( rayVector, tempVector);
-            //only assigned the x & y due to misbehaving of the z axis
-            g.transform.position = new Vector3(rayToTest.GetPoint(5f).x, rayToTest.GetPoint(5f).y, g.GetComponent<Transform>().position.z);
-            Debug.Log(g.transform.position);
-
+            foreach (Transform g in modelObjectPos)
+            {
+                //calculate the vectore between 2 points and increase it by a scalar
+                Vector3 direction = gameObject.transform.position - g.position;
+                    g.localPosition += direction + Vector3.Normalize(direction) * 0.25f;
+                    isExpanded = true;
+            }  
+        }
+        else
+        {
+            foreach (Transform g in modelObjectPos)
+            {
+                //calculate the vectore between 2 points and increase it by a scalar
+                Vector3 direction = gameObject.transform.position - g.position;
+                g.localPosition -= direction + Vector3.Normalize(direction) * 0.25f;
+                isExpanded = false;
+            }
         }
     }
 }
