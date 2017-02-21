@@ -116,8 +116,7 @@ namespace HoloToolkit.Unity.SpatialMapping
                     }
                     else
                     {
-                        float height = this.GetComponent<MeshRenderer>().bounds.size.y;
-                        gameObject.transform.position = new Vector3(hitInfo.point.x,hitInfo.point.y+height/2,hitInfo.point.z);
+                        gameObject.transform.position = hitInfo.point;
                         gameObject.transform.rotation = toQuat;
                     }
                 }
