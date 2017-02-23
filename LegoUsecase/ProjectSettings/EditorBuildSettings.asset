@@ -11,3 +11,5 @@ EditorBuildSettings:
     path: Assets/Scenes/DisplayManual.unity
   - enabled: 0
     path: Assets/Scenes/LegoModels.unity
+  - enabled: 0
+    path: Assets/HoloToolkit/Sharing/Tests/Sharing.unity
