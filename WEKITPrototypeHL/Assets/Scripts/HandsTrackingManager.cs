@@ -25,7 +25,7 @@ namespace HoloToolkit.Unity
         public UIDisplayAPI MyDataManager;
         public GameObject TrackingObject;
 
-        Vector3[] handPos = new Vector3[2];
+        GameObject[] handPos = new GameObject[2];
         private HashSet<uint> trackedHands = new HashSet<uint>();
         private Dictionary<uint, GameObject> trackingObject = new Dictionary<uint, GameObject>();
        
@@ -39,11 +39,15 @@ namespace HoloToolkit.Unity
         void Update()
         {
             GameObject[] myHands = GameObject.FindGameObjectsWithTag("Hand");
-            for(int i = 0; i < myHands.Length; i++)
+
+            if (myHands[0] != null)
             {
-                handPos[i] = myHands[i].transform.position;
+                MyDataManager.HandPositions[0] = myHands[0].transform.position;
             }
-            MyDataManager.HandPositions = handPos;
+            if (myHands[1] != null)
+            {
+                MyDataManager.HandPositions[1] = myHands[1].transform.position;
+            }
         }
 
         private void InteractionManager_SourceUpdated(InteractionSourceState state)
