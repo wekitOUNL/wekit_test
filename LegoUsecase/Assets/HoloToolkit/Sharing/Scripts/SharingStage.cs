@@ -248,14 +248,15 @@ namespace HoloToolkit.Sharing
             ClientConfig config = new ClientConfig(ClientRole);
             config.SetIsAudioEndpoint(IsAudioEndpoint);
             config.SetLogWriter(logWriter);
-
+            
             // Only set the server info is we are connecting on awake
             if (connectOnAwake)
             {
                 config.SetServerAddress(ServerAddress);
                 config.SetServerPort(ServerPort);
             }
-
+            //bibeg
+            config.SetProfilerEnabled(false);
             Manager = SharingManager.Create(config);
 
             //set up callbacks so that we know when we've connected successfully
