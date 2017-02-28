@@ -7,9 +7,14 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 0
     path: Assets/Scenes/Phase1.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/DisplayManual.unity
   - enabled: 0
     path: Assets/Scenes/LegoModels.unity
   - enabled: 0
     path: Assets/HoloToolkit/Sharing/Tests/Sharing.unity
+<<<<<<< HEAD
+=======
+  - enabled: 1
+    path: Assets/Scenes/Bridge.unity
+>>>>>>> ac3914d62cebd83861f01420970d6dc8ea4b6704

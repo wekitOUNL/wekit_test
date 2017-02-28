@@ -13,7 +13,7 @@ public class DataPlayer : MonoBehaviour
 
     float startTime = 0;
     List<SaveData> myRecording;
-    Vector3 myWAC;
+    Transform myCoords;
 
 	void Start ()
 	{
@@ -42,10 +42,10 @@ public class DataPlayer : MonoBehaviour
 
 
     //This function takes a list of SaveData and distributes them accordingly.
-    public void Activate(List<SaveData> tempRecords, Vector3 WAC)
+    public void Activate(List<SaveData> tempRecords, Transform PMC)
     {
         //Sets the offset based on the World Anchor.
-        myWAC = WAC;
+        myCoords = PMC;
 
         //Sets the current data for the Play function and starts it.
         currentFrame = 0;
@@ -79,10 +79,10 @@ public class DataPlayer : MonoBehaviour
     //This function sets the position of the ghost to match the recorded data
     void Play(SaveData tempData)
     {
-        GetComponent<Transform>().transform.position = tempData.HeadPosition + myWAC;
-        GetComponent<Transform>().transform.rotation = Quaternion.LookRotation(tempData.GazeDirection + myWAC);
+        GetComponent<Transform>().transform.position = myCoords.TransformPoint(tempData.HeadPosition);
+        GetComponent<Transform>().transform.rotation = Quaternion.LookRotation(myCoords.TransformDirection(tempData.GazeDirection));
 
-        Hand1.GetComponent<Transform>().transform.position = tempData.HandPosition1 + myWAC;
-        Hand2.GetComponent<Transform>().transform.position = tempData.HandPosition2 + myWAC;
+        Hand1.GetComponent<Transform>().transform.position = myCoords.TransformPoint(tempData.HandPosition1);
+        Hand2.GetComponent<Transform>().transform.position = myCoords.TransformPoint(tempData.HandPosition2);
     }
 }

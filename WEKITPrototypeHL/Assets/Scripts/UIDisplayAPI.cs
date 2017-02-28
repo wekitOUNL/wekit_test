@@ -16,32 +16,38 @@ public class UIDisplayAPI : MonoBehaviour
 
     //Reference to the DataPlayer that handles the recordings.
     public DataPlayer MyPlayer;
+    public WorldAnchorSetter WAS;
 
-    public Vector3 [] HandPositions = new Vector3[] {Vector3.zero, Vector3.zero};
+    public Vector3[] HandPositions;
 
-    public Vector3 WorldAnchorCoords;
+    public Transform PMCoords;
 
     //Private variables.
     List<SaveData> recordList = new List<SaveData>();
-    Vector3 headPosition;
-    Vector3 gazeDirection;
+    Vector3 relativeHeadPosition;
+    Vector3 relativeGazeDirection;
     RaycastHit hitInfo;
     bool castHit;
     string output;
     string status;
     bool isRecording = false;
 
+
 	void Awake ()
 	{
         status = "pending";
+        HandPositions = new Vector3[2];
+        HandPositions[0] = new Vector3(0, 0, 0);
+        HandPositions[1] = new Vector3(0, 0, 0);
 	}
 
     void Update()
     {
+        PMCoords = WAS.PositionManager.transform;
         Debug.Log(isRecording);
 
         //Check if the raycast from the user's head in the direction of his gaze hit an object.
-        if (Physics.Raycast(headPosition, gazeDirection, out hitInfo))
+        if (Physics.Raycast(relativeHeadPosition, relativeGazeDirection, out hitInfo))
         {
             castHit = true;
         }
@@ -51,25 +57,25 @@ public class UIDisplayAPI : MonoBehaviour
         }
 
         //Get the position of the user's head and the direction of the gaze.
-        headPosition = Camera.main.transform.position;
-        gazeDirection = Camera.main.transform.forward;
-
-
+        relativeHeadPosition = PMCoords.InverseTransformPoint(Camera.main.transform.position);
+        relativeGazeDirection = PMCoords.InverseTransformDirection(Camera.main.transform.forward);
 
 
         //Display the collected information in the UI.
-        output =    castHit.ToString() + 
-                    Environment.NewLine + "pos:" + headPosition.ToString() + 
-                    Environment.NewLine + "dir:" + gazeDirection.ToString() + 
+        output = castHit.ToString() +
+                    Environment.NewLine + "WAC:" + PMCoords.position.ToString() +
+                    Environment.NewLine + "pos2:" + Camera.main.transform.position.ToString() +
+                    Environment.NewLine + "pos:" + relativeHeadPosition.ToString() +
+                    Environment.NewLine + "dir:" + relativeGazeDirection.ToString() +
                     Environment.NewLine + "h1:" + HandPositions[0].x + "," + HandPositions[0].y + "," + HandPositions[0].z +
                     Environment.NewLine + "h2:" + HandPositions[1].x + "," + HandPositions[1].y + "," + HandPositions[1].z +
                     Environment.NewLine + status + 
                     Environment.NewLine + Time.time + 
                     Environment.NewLine + MyPlayer.currentFrame.ToString() + ", " + MyPlayer.isPlaying.ToString();
 
-
         UIText.GetComponent<Text>().text = output;
         
+
         //Start recording the data with a keybinding.
         if (Input.GetKeyDown("r"))
         {
@@ -105,6 +111,7 @@ public class UIDisplayAPI : MonoBehaviour
 
     public void StartRecording()
     {
+
         //Stop ongoing recordings, then run the Record function 25 times per second.
         StopRecording();
         if (!isRecording)
@@ -119,7 +126,13 @@ public class UIDisplayAPI : MonoBehaviour
     public void Record()
     {
         //Add the data in our current frame to the list of recorded data.
-        recordList.Add(new SaveData(headPosition, gazeDirection, castHit, recordList.Count, HandPositions, WorldAnchorCoords));
+        recordList.Add(new SaveData(relativeHeadPosition,
+                                    relativeGazeDirection,
+                                    castHit,
+                                    recordList.Count,
+                                    PMCoords.InverseTransformPoint(HandPositions[0]),
+                                    PMCoords.InverseTransformPoint(HandPositions[1])));
+
     }
 
     public void StopRecording()
@@ -143,7 +156,7 @@ public class UIDisplayAPI : MonoBehaviour
     public void PlayRecord()
     {
         //Calls the DataPlayer to replay the temporarily stored Data.
-        MyPlayer.Activate(recordList, WorldAnchorCoords);
+        MyPlayer.Activate(recordList, PMCoords);
         status = "playing";
     }
 
@@ -246,13 +259,13 @@ public class SaveData
 
     }
 
-    public SaveData(Vector3 hP, Vector3 gD, bool cH, int tS, Vector3[] haP, Vector3 WAC)
+    public SaveData(Vector3 hP, Vector3 gD, bool cH, int tS, Vector3 haP1, Vector3 haP2)
     {
-        HeadPosition = hP - WAC;
-        GazeDirection = gD - WAC;
+        HeadPosition = hP;
+        GazeDirection = gD;
         CastHit = cH;
-        HandPosition1 = haP[0] - WAC;
-        HandPosition2 = haP[1] - WAC;
+        HandPosition1 = haP1;
+        HandPosition2 = haP2;
 
         TimeStamp = tS * 0.04f;
     }

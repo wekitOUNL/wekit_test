@@ -21,7 +21,9 @@ namespace HoloToolkit.Sharing.Tests
         public enum TestMessageID : byte
         {
             HeadTransform = MessageID.UserMessageIDStart,
+            SendTransform = MessageID.UserMessageIDStart,
             Max
+            
         }
 
         public enum UserMessageChannels
@@ -192,5 +194,25 @@ namespace HoloToolkit.Sharing.Tests
         }
 
         #endregion
+
+
+        public void SendTransform(Vector3 position, Quaternion rotation)
+        {
+            // If we are connected to a session, broadcast our head info
+            if (this.serverConnection != null && this.serverConnection.IsConnected())
+            {
+                // Create an outgoing network message to contain all the info we want to send
+                NetworkOutMessage msg = CreateMessage((byte)TestMessageID.SendTransform);
+                AppendVector3(msg, position);
+                AppendQuaternion(msg, rotation);
+
+                // Send the message as a broadcast, which will cause the server to forward it to all other users in the session.  
+                this.serverConnection.Broadcast(
+                    msg,
+                    MessagePriority.Immediate,
+                    MessageReliability.Reliable,
+                    MessageChannel.Avatar);
+            }
+        }
     }
 }

@@ -31,21 +31,24 @@ public class SpeechManager : MonoBehaviour
         keywords.Add("Next", () =>
         {
             Debug.Log("keyword added");
-            GameObject.FindGameObjectWithTag("DisplayManual").SendMessage("AssignNext");
+            //GameObject.FindGameObjectWithTag("DisplayManual").SendMessage("AssignNext");
+            GameObject.FindGameObjectWithTag("Bridge").SendMessage("AssignNext");
 
         });
 
-        keywords.Add("Previous", () =>
-        {
-            Debug.Log("keyword added");
-            GameObject.FindGameObjectWithTag("DisplayManual").SendMessage("AssignPrevious");
+        //keywords.Add("Previous", () =>
+        //{
+        //    Debug.Log("keyword added");
+        //    GameObject.FindGameObjectWithTag("Bridge").SendMessage("AssignPrevious");
+        //    //GameObject.FindGameObjectWithTag("DisplayManual").SendMessage("AssignPrevious");
 
-        });
+        //});
 
         keywords.Add("now", () =>
         {
             Debug.Log("keyword added");
-            GameObject.FindGameObjectWithTag("LegoModel").SendMessage("ExpandModel");
+            //GameObject.FindGameObjectWithTag("LegoModel").SendMessage("ExpandModel");
+            GameObject.FindGameObjectWithTag("Bridge").SendMessage("ExpandModel");
 
         });
 

@@ -248,7 +248,11 @@ namespace HoloToolkit.Sharing
             ClientConfig config = new ClientConfig(ClientRole);
             config.SetIsAudioEndpoint(IsAudioEndpoint);
             config.SetLogWriter(logWriter);
+<<<<<<< HEAD
             
+=======
+           
+>>>>>>> ac3914d62cebd83861f01420970d6dc8ea4b6704
             // Only set the server info is we are connecting on awake
             if (connectOnAwake)
             {
@@ -257,6 +261,10 @@ namespace HoloToolkit.Sharing
             }
             //bibeg
             config.SetProfilerEnabled(false);
+<<<<<<< HEAD
+=======
+
+>>>>>>> ac3914d62cebd83861f01420970d6dc8ea4b6704
             Manager = SharingManager.Create(config);
 
             //set up callbacks so that we know when we've connected successfully
