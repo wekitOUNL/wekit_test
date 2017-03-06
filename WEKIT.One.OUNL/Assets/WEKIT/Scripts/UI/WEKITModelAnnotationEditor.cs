@@ -10,22 +10,31 @@ using UnityEngine;
 public class WEKITModelAnnotationEditor : WEKITAnnotationBaseEditor
 {
     GameObject placeableModel;
-    public void Awake()
-    {
-        PlaceModel();
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    public void PlaceModel()
+    public void PlaceBox()
     {
         Debug.Log("3d model Annotation added");
-        placeableModel = Resources.Load("TCZ Cars Free/Models/TCZ_MS_09") as GameObject;
-        gameObject.GetComponent<MeshFilter>().mesh = placeableModel.GetComponent<Mesh>();
+        placeableModel = Resources.Load("Medieval/Models/Box") as GameObject;
+        RenderModel(placeableModel);
+    }
+
+    public void PlaceBed()
+    {
+        Debug.Log("3d model Annotation added");
+        placeableModel = Resources.Load("Medieval/Models/Bed") as GameObject;
+        RenderModel(placeableModel);
+
+    }
+
+    void RenderModel(GameObject g)
+    {
+        foreach (Transform T in GetComponentsInChildren<Transform>())
+        {
+            T.GetComponent<Renderer>().enabled = false;
+        }
+        gameObject.GetComponent<MeshFilter>().mesh = g.GetComponent<MeshFilter>().mesh;
+        gameObject.GetComponent<Renderer>().enabled = true;
+        gameObject.SetActive(true);
     }
 
 }
