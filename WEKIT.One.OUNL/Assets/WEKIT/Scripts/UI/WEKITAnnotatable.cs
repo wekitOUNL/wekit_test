@@ -187,6 +187,16 @@ public class WEKITAnnotatable : WEKITFocusableObject {
         GameObject annotationObject = AddAnnotation(WEKITGlobalsManager.Instance.photoAnnotationObject);
     }
 
+    /// <summary>
+    /// adds a new 3d model annotation to this object. 
+    /// The annotation will be placed in the user's gaze direction in front of this object. 
+    /// </summary>
+    void AddModelAnnotation()
+    {
+        //Debug.Log("WEKITAnnotatable.AddAnnotation");
+        GameObject annotationObject = AddAnnotation(WEKITGlobalsManager.Instance.modelAnnotationObject);
+    }
+
 
     /// <summary>
     /// removes the annotation from this object. 

@@ -49,6 +49,13 @@ public class WEKITGlobalsManager : Singleton<WEKITGlobalsManager> {
     public GameObject DirectionIndicatorPrefab;
 
     /// <summary>
+    /// @bibeg
+    /// the prefab to be used for 3D model annotations.
+    /// </summary>
+    [Tooltip("Drag the AnnotationModel prefab asset you want to display.")]
+    public GameObject modelAnnotationObject;
+
+    /// <summary>
     /// contains the currently active annotatable object. 
     /// In the scene, directional pointers are used to direct the user's attention towards the active object. 
     /// </summary>
